@@ -1,12 +1,29 @@
-body {
-    margin: auto;
-}
-
+/* Stile principale del contenitore */
 main {
+    position: relative;
+    overflow: hidden;
     margin: auto;
     background-color: gray;
     max-width: 504px;
     height: 504px;
+}
+
+#background_container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 200%;
+    /* Doppia larghezza per coprire il doppio del contenitore principale */
+    height: 100%;
+    animation: animazioneBackground 2s linear infinite;
+}
+
+.background1,
+.background2 {
+    width: 50%;
+    height: 100%;
+    float: left;
+    background-size: cover;
     background-image: url(../img/background.png);
 }
 
@@ -21,5 +38,4 @@ header {
 .rangeBar {
     display: flex;
     flex-direction: row;
-
 }
