@@ -18,7 +18,8 @@ header {
     padding: 20px;
 }
 
-.volumeBar {
+.rangeBar {
     display: flex;
     flex-direction: row;
+
 }
