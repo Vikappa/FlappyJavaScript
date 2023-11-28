@@ -1,0 +1,24 @@
+body {
+    margin: auto;
+}
+
+main {
+    margin: auto;
+    background-color: gray;
+    max-width: 504px;
+    height: 504px;
+    background-image: url(../img/background.png);
+}
+
+#bird img {
+    width: 32px;
+}
+
+header {
+    padding: 20px;
+}
+
+.volumeBar {
+    display: flex;
+    flex-direction: row;
+}
