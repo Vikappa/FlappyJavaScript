@@ -3,17 +3,46 @@ let speedInput = document.getElementById("speed");
 let diffInput = document.getElementById("diff");
 let inGame = true //aka not gameover
 let scoreDiv = document.getElementById("Score"); // <p> punteggio
-let punteggio = 0;
 let classeCSSSfondoAnimato1 = document.getElementById("background1")
 let classeCSSSfondoAnimato2 = document.getElementById("background2")
+let divMain = document.getElementById("myDiv") // importo il div main per targettarlo col listener del salto
+let punteggio = 0;
+
 // Una volta messo un elemento html dentro un oggetto Js puoi modificare le sue caratteristiche CSS da qua. Javascript è un mondo meraviglioso
 //Un processo simile avviene quando dai a un oggetto.valore = oggettodue.valore per cui se modifico oggettodue.valore oggetto.valore si va a prendere la stessa porzione di memoria
+
+function tocco_utente() {
+    console.log("Salto azionato")
+}
+
+//metodi che azionati dall'interazione dell'utente
+function mobile() {
+    tocco_utente()
+    console.log("Tocco su schermo rilevato!");
+}
+
+function barra_spaziatrice(event) {
+    // Funzione da eseguire quando l'utente preme la barra spaziatrice
+    if (event.code === "Space") {
+        tocco_utente()
+        console.log("Barra spaziatrice premuta!");
+    }
+}
 
 
 //speedValue e diffValue sono due parametri numerici che devono ereditare il valore degli input presi dai listener per modificare l'esecuzione del metodo principale mainMethod()
 let speedValue
 let diffValue
 
+// var boolean per controllare che il dispositivo sia un pc o un mobile. 
+//mi servirà a inizio esecuzione gioco prima del ciclo principale per modificare l'invito a premere barra spaziatrice o toccare lo schermo
+let isMobile = false;
+
+// Verifica se l'utente sta navigando da un dispositivo mobile
+if (/Mobi|Android/i.test(navigator.userAgent)) {
+    isMobile = true;
+    console.log("User agent mobile")
+}
 
 // I listener si impostano una sola volta sugli oggetti Js a cui ho fatto prendere in input gli <input type="range"> per aggiornare speedValue e diffValue
 speedInput.addEventListener("input", function () {
@@ -26,16 +55,27 @@ diffInput.addEventListener("input", function () {
     console.log("Valore di diff:", diffValue);
 });
 
+// Aggiungi un listener per il tocco su schermo
+if (isMobile) {
+    document.addEventListener("touchstart", mobile);//questo metodo aggiunge un listener per cui toccando qualunque parte dello schermo l'uccellino parte
+} else {
+    // Aggiungi un listener per la pressione della barra spaziatrice
+    document.addEventListener("keydown", barra_spaziatrice);
+}
+divMain.addEventListener("touchstart", mobile); //aggiungo a divMain un listener che aziona il metodo mobile()
+
 
 bird.style.left = "100px"; // Imposta la posizione orizzontale a 100 pixel
 bird.style.top = "50px";  // Imposta la posizione verticale a 50 pixel
 
 
 
-
 // Esegui la funzione mainMethod ogni 1000 millisecondi (1 secondo)
 let currentSpeed = parseInt(speedInput.value, 10)// variabile per conservare il valore di speed in ogni iterazione del ciclo principale
 console.log("CurrentSpeed iniziale: " + parseInt(speedInput.value))
+
+
+
 
 // In JavaScript non esiste il multithreading, una sorta di multithread può essere realizzata con i metodi con intervallo di secondi.
 // Devo creare un oggetto interValID ma poi per modificare l'esecuzione del metodo principale uso setInterval(mainMethod, milliseconde)
@@ -49,6 +89,7 @@ function mainMethod() {
         parseInt(punteggio, 10) +
         " Datatype: " + typeof punteggio);
 
+
     // I valori di diffValue e speedValue vengono qui presi come interi dagli oggetti input range dell'html
     var valoreStringaSpeed = speedInput.value // Usa la proprietà .value per ottenere il valore come stringa
     var valoreInteroSpeed = parseInt(valoreStringaSpeed, 10)// Converte la stringa in un numero intero utilizzando parseInt
@@ -56,7 +97,7 @@ function mainMethod() {
     var valoreStringaDiff = diffInput.value
     var valoreInteroDiff = parseInt(valoreStringaDiff, 10)
 
-
+    let velocità_animazione // Variabile comune per regolare le velocità degli elementi controllati dalla rangebar valoreStringaSpeed
 
     //variabili intere da usare nel codice (speedValue e diffValue)
     speedValue = valoreInteroSpeed
@@ -70,7 +111,6 @@ function mainMethod() {
         //Qui metterò il post game
     }
     else {
-
         //prima di iniziare le nuove iterazioni, controllo se devo modificare la velocità del metodo
         if (speedValue !== currentSpeed) {
             switch (speedValue) {
@@ -138,9 +178,13 @@ function mainMethod() {
                     console.log("Errore default")
                     break;
             }
+
+            //Check salute animazioni
             currentSpeed = speedValue // Per non iterare questo switch ad ogni iterazione del metodo principale
             console.log("Aggiorno currentSpeed speedValue: " + speedValue + " dataType: " + typeof speedValue + " currentSpeed: " + currentSpeed + " dataType: " + typeof currentSpeed)
             console.log("Animazione sfondo classeCSSSfondoAnimato1 e 2 " + window.getComputedStyle(classeCSSSfondoAnimato1) + " " + window.getComputedStyle(classeCSSSfondoAnimato2))
+
+            //
         }
 
 
