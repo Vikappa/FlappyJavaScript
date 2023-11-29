@@ -5,14 +5,19 @@ let inGame = true //aka not gameover
 let scoreDiv = document.getElementById("Score"); // <p> punteggio
 let classeCSSSfondoAnimato1 = document.getElementById("background1")
 let classeCSSSfondoAnimato2 = document.getElementById("background2")
-let divMain = document.getElementById("myDiv") // importo il div main per targettarlo col listener del salto
+let divMain = document.getElementById("mainscreen") // importo il div main per targettarlo col listener del salto
+
 let punteggio = 0;
+//Valori booleani per controllare il pre, durante e post gioco
+let played = false
+let gameover = false
 
 // Una volta messo un elemento html dentro un oggetto Js puoi modificare le sue caratteristiche CSS da qua. Javascript è un mondo meraviglioso
 //Un processo simile avviene quando dai a un oggetto.valore = oggettodue.valore per cui se modifico oggettodue.valore oggetto.valore si va a prendere la stessa porzione di memoria
 
 function tocco_utente() {
     console.log("Salto azionato")
+
 }
 
 //metodi che azionati dall'interazione dell'utente
@@ -74,8 +79,6 @@ let currentSpeed = parseInt(speedInput.value, 10)// variabile per conservare il 
 console.log("CurrentSpeed iniziale: " + parseInt(speedInput.value))
 
 
-
-
 // In JavaScript non esiste il multithreading, una sorta di multithread può essere realizzata con i metodi con intervallo di secondi.
 // Devo creare un oggetto interValID ma poi per modificare l'esecuzione del metodo principale uso setInterval(mainMethod, milliseconde)
 let intervalId = setInterval(mainMethod, 1200);
@@ -84,6 +87,8 @@ let intervalId = setInterval(mainMethod, 1200);
 //per aggiornare il progresso in base alla difficoltà e velocità impostate. 
 function mainMethod() {
 
+    //check salute
+    console.log(navigator.userAgent);
     console.log("Punteggio:" +
         parseInt(punteggio, 10) +
         " Datatype: " + typeof punteggio);
@@ -101,10 +106,6 @@ function mainMethod() {
     //variabili intere da usare nel codice (speedValue e diffValue)
     speedValue = valoreInteroSpeed
     diffValue = valoreInteroDiff
-
-    //Valori booleani per controllare il pre, durante e post gioco
-    let played = false
-    let gameover = false
 
     if (played) {
         //Qui metterò il post game
