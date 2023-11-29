@@ -40,8 +40,5 @@ diffInput.addEventListener("input", function () {
 bird.style.left = "100px"; // Imposta la posizione orizzontale a 100 pixel
 bird.style.top = "50px";  // Imposta la posizione verticale a 50 pixel
 
-//Ora inizia il cuore dell'esecuzione del gioco. Finche non siamo in gameover, il ciclo while continuerà a riprodurre ulteriori due o tre cicli (vedrò strada facendo) 
+//Ora inizia il cuore dell'esecuzione del gioco. Finche non siamo in gameover, il ciclo while continuerà a riprodurre ulteriori due o tre cicli (vedrò strada facendo)
 //per aggiornare il progresso in base alla difficoltà e velocità impostate. 
-while (inGame) {
-
-}
