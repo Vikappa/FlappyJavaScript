@@ -77,62 +77,62 @@ function mainMethod() {
                 case 1:
                     console.log("Set velocità = 1  speedValue: " + speedValue + " dataType: " + typeof speedValue + " currentSpeed: " + currentSpeed + " dataType: " + typeof currentSpeed)
                     setInterval(mainMethod, 2500);
-                    classeCSSSfondoAnimato1.style.animationDuration = '1s'
-                    classeCSSSfondoAnimato2.style.animationDuration = '1s'
+                    classeCSSSfondoAnimato1.style.animationDuration = '2.4s'
+                    classeCSSSfondoAnimato2.style.animationDuration = '2.4s'
                     break;
                 case 2:
                     console.log("Set velocità = 2 speedValue: " + speedValue + " dataType: " + typeof speedValue + " currentSpeed: " + currentSpeed + " dataType: " + typeof currentSpeed)
                     setInterval(mainMethod, 1800);
-                    classeCSSSfondoAnimato1.style.animationDuration = '1.2s'
-                    classeCSSSfondoAnimato2.style.animationDuration = '1.2s'
+                    classeCSSSfondoAnimato1.style.animationDuration = '2s'
+                    classeCSSSfondoAnimato2.style.animationDuration = '2s'
                     break;
                 case 3:
                     console.log("Set velocità = 3 speedValue: " + speedValue + " dataType: " + typeof speedValue + " currentSpeed: " + currentSpeed + " dataType: " + typeof currentSpeed)
                     setInterval(mainMethod, 1600);
-                    classeCSSSfondoAnimato1.style.animationDuration = '1.5s'
-                    classeCSSSfondoAnimato2.style.animationDuration = '1.5s'
+                    classeCSSSfondoAnimato1.style.animationDuration = '1.8s'
+                    classeCSSSfondoAnimato2.style.animationDuration = '1.8'
                     break;
                 case 4:
                     console.log("Set velocità = 4 speedValue: " + speedValue + " dataType: " + typeof speedValue + " currentSpeed: " + currentSpeed + " dataType: " + typeof currentSpeed)
                     setInterval(mainMethod, 1400);
-                    classeCSSSfondoAnimato1.style.animationDuration = '1.8s'
-                    classeCSSSfondoAnimato2.style.animationDuration = '1.8s'
+                    classeCSSSfondoAnimato1.style.animationDuration = '1.4s'
+                    classeCSSSfondoAnimato2.style.animationDuration = '1.4s'
                     break;
                 case 5:
                     console.log("Set velocità = 5 speedValue: " + speedValue + " dataType: " + typeof speedValue + " currentSpeed: " + currentSpeed + " dataType: " + typeof currentSpeed)
                     setInterval(mainMethod, 1200);
-                    classeCSSSfondoAnimato1.style.animationDuration = '2s'
-                    classeCSSSfondoAnimato2.style.animationDuration = '2s'
+                    classeCSSSfondoAnimato1.style.animationDuration = '1.2s'
+                    classeCSSSfondoAnimato2.style.animationDuration = '1.2s'
                     break;
                 case 6:
                     console.log("Set velocità = 6 speedValue: " + speedValue + " dataType: " + typeof speedValue + " currentSpeed: " + currentSpeed + " dataType: " + typeof currentSpeed)
                     setInterval(mainMethod, 1000);
-                    classeCSSSfondoAnimato1.style.animationDuration = '4s'
-                    classeCSSSfondoAnimato2.style.animationDuration = '4s'
+                    classeCSSSfondoAnimato1.style.animationDuration = '1s'
+                    classeCSSSfondoAnimato2.style.animationDuration = '1s'
                     break;
                 case 7:
                     console.log("Set velocità = 7 speedValue: " + speedValue + " dataType: " + typeof speedValue + " currentSpeed: " + currentSpeed + " dataType: " + typeof currentSpeed)
                     setInterval(mainMethod, 800);
-                    classeCSSSfondoAnimato1.style.animationDuration = '7s'
-                    classeCSSSfondoAnimato2.style.animationDuration = '7s'
+                    classeCSSSfondoAnimato1.style.animationDuration = '0.8s'
+                    classeCSSSfondoAnimato2.style.animationDuration = '0.8s'
                     break;
                 case 8:
                     console.log("Set velocità = 8 speedValue: " + speedValue + " dataType: " + typeof speedValue + " currentSpeed: " + currentSpeed + " dataType: " + typeof currentSpeed)
                     setInterval(mainMethod, 600);
-                    classeCSSSfondoAnimato1.style.animationDuration = '12s'
-                    classeCSSSfondoAnimato2.style.animationDuration = '12s'
+                    classeCSSSfondoAnimato1.style.animationDuration = '0.6s'
+                    classeCSSSfondoAnimato2.style.animationDuration = '0.6s'
                     break;
                 case 9:
                     console.log("Set velocità = 9 speedValue: " + speedValue + " dataType: " + typeof speedValue + " currentSpeed: " + currentSpeed + " dataType: " + typeof currentSpeed)
                     setInterval(mainMethod, 400);
-                    classeCSSSfondoAnimato1.style.animationDuration = '15s'
-                    classeCSSSfondoAnimato2.style.animationDuration = '15s'
+                    classeCSSSfondoAnimato1.style.animationDuration = '0.4'
+                    classeCSSSfondoAnimato2.style.animationDuration = '0.4'
                     break;
                 case 10:
                     console.log("Set velocità = 10 speedValue: " + speedValue + " dataType: " + typeof speedValue + " currentSpeed: " + currentSpeed + " dataType: " + typeof currentSpeed)
                     setInterval(mainMethod, 200);
-                    classeCSSSfondoAnimato1.style.animationDuration = '20s'
-                    classeCSSSfondoAnimato2.style.animationDuration = '20s'
+                    classeCSSSfondoAnimato1.style.animationDuration = ''
+                    classeCSSSfondoAnimato2.style.animationDuration = ''
                     break;
                 default:
                     console.log("Errore default")
