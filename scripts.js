@@ -34,12 +34,12 @@ const intervalId = setInterval(eseguiCiclo, 1000);
 function eseguiCiclo() {
     // Il tuo codice qui
 
-    console.log("Iterazione:", count);
+    console.log("Iterazione:", punteggio);
 
-    count++;
+    punteggio++;
 
     // Verifica se devi terminare il ciclo
-    if (count > 10) {
+    if (punteggio > 10) {
         clearInterval(intervalId); // Termina l'esecuzione del ciclo
     }
 }
