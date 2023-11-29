@@ -6,6 +6,7 @@ let scoreDiv = document.getElementById("Score"); // <p> punteggio
 let classeCSSSfondoAnimato1 = document.getElementById("background1")
 let classeCSSSfondoAnimato2 = document.getElementById("background2")
 let divMain = document.getElementById("mainscreen") // importo il div main per targettarlo col listener del salto
+let pTag = document.getElementById("tagP")
 
 let punteggio = 0;
 //Valori booleani per controllare il pre, durante e post gioco
@@ -29,7 +30,6 @@ function mobile() {
 function barra_spaziatrice(event) {
     // Funzione da eseguire quando l'utente preme la barra spaziatrice
     if (event.code === "Space") {
-        tocco_utente()
         console.log("Barra spaziatrice premuta!");
     }
 }
@@ -43,11 +43,14 @@ let diffValue
 //mi servirà a inizio esecuzione gioco prima del ciclo principale per modificare l'invito a premere barra spaziatrice o toccare lo schermo
 let isMobile = false;
 
-// Verifica se l'utente sta navigando da un dispositivo mobile
-if (/Mobi|Android/i.test(navigator.userAgent)) {
+// Verifica se l'utente sta navigando da un dispositivo mobile LOL
+if (window.innerWidth < 650) {
     isMobile = true;
     console.log("User agent mobile")
-}
+    pTag.textContent = "Tocca il quadrato di gioco per saltare!"
+
+};
+
 
 // I listener si impostano una sola volta sugli oggetti Js a cui ho fatto prendere in input gli <input type="range"> per aggiornare speedValue e diffValue
 speedInput.addEventListener("input", function () {
@@ -100,8 +103,6 @@ function mainMethod() {
 
     var valoreStringaDiff = diffInput.value
     var valoreInteroDiff = parseInt(valoreStringaDiff, 10)
-
-    let velocità_animazione // Variabile comune per regolare le velocità degli elementi controllati dalla rangebar valoreStringaSpeed
 
     //variabili intere da usare nel codice (speedValue e diffValue)
     speedValue = valoreInteroSpeed
