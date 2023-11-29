@@ -4,8 +4,8 @@ main {
     overflow: hidden;
     margin: auto;
     background-color: gray;
-    max-width: 504px;
-    height: 504px;
+    max-width: 457px;
+    height: 457px;
 }
 
 #background_container {
@@ -15,7 +15,6 @@ main {
     width: 200%;
     /* Doppia larghezza per coprire il doppio del contenitore principale */
     height: 100%;
-    animation: animazioneBackground 2s linear infinite;
 }
 
 .background1,
@@ -23,12 +22,16 @@ main {
     width: 50%;
     height: 100%;
     float: left;
-    background-size: cover;
     background-image: url(../img/background.png);
+    animation: animazioneBackground 2s linear infinite;
+    margin-left: -1px;
 }
 
-#bird img {
+#bird {
     width: 32px;
+    position: absolute;
+    z-index: 2;
+    /* z-index indica l'ordine di priorità di visualizzazione dell'immagine. Gli oggetti con z-index più alto vengono sempre visualizzati sopra quelli con z-index più basso */
 }
 
 header {
