@@ -7,6 +7,9 @@ let punteggio = 0;
 // Una volta messo un elemento html dentro un oggetto Js puoi modificare le sue caratteristiche CSS da qua. Javascript è un mondo meraviglioso
 //Un processo simile avviene quando dai a un oggetto.valore = oggettodue.valore per cui se modifico oggettodue.valore oggetto.valore si va a prendere la stessa porzione di memoriaSi
 
+let diffSet = speedInput
+let speedSet = diffInput
+
 
 // I listener si impostano una sola volta sugli oggetti Js a cui ho fatto prendere in input gli <input type="range"> per aggiornare speedValue e diffValue
 speedInput.addEventListener("input", function () {
@@ -33,14 +36,22 @@ bird.style.top = "50px";  // Imposta la posizione verticale a 50 pixel
 const intervalId = setInterval(eseguiCiclo, 1000);
 
 function eseguiCiclo() {
-    // Il tuo codice qui
 
-    console.log("Iterazione:", punteggio);
 
-    punteggio++;
+
+    punteggio = punteggio + diffSet
+
+
+    console.log("Punteggio:" +
+        parseInt(punteggio));
+
+    console.log("Datatype di punteggio " + typeof punteggio)
+    console.log("Datatype di diffSet " + typeof diffSet)
+
+
 
     // Verifica se devi terminare il ciclo
-    if (punteggio > 10) {
+    if (punteggio > 1000) {
         clearInterval(intervalId); // Termina l'esecuzione del ciclo
     }
 }
