@@ -57,12 +57,11 @@ diffInput.addEventListener("input", function () {
 
 // Aggiungi un listener per il tocco su schermo
 if (isMobile) {
-    document.addEventListener("touchstart", mobile);//questo metodo aggiunge un listener per cui toccando qualunque parte dello schermo l'uccellino parte
+    divMain.addEventListener("touchstart", mobile); //aggiungo a divMain un listener che aziona il metodo mobile()
 } else {
     // Aggiungi un listener per la pressione della barra spaziatrice
     document.addEventListener("keydown", barra_spaziatrice);
 }
-divMain.addEventListener("touchstart", mobile); //aggiungo a divMain un listener che aziona il metodo mobile()
 
 
 bird.style.left = "100px"; // Imposta la posizione orizzontale a 100 pixel
