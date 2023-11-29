@@ -1,4 +1,5 @@
-/* Stile principale del contenitore */
+@import url('https://fonts.googleapis.com/css2?family=Orbitron&family=Pixelify+Sans&family=Wix+Madefor+Display&display=swap');
+
 main {
     position: relative;
     overflow: hidden;
@@ -7,6 +8,34 @@ main {
     max-width: 457px;
     height: 457px;
 }
+
+header h1 {
+    font-size: 2em;
+    font-family: 'Orbitron', sans-serif;
+}
+
+header h6 {
+    margin: 10px;
+    font-family: 'Pixelify Sans', sans-serif;
+}
+
+p {
+    font-family: 'Wix Madefor Display', sans-serif;
+    margin: 3px;
+}
+
+#score {
+    background: rgba(255, 255, 255, 0);
+    /* Colore bianco con alpha 0.5 per una sfumatura trasparente */
+}
+
+
+#volumeBar {
+    font-family: 'Wix Madefor Display', sans-serif;
+    display: flex;
+    justify-content: space-around;
+}
+
 
 #background_container {
     position: absolute;

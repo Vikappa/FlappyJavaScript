@@ -25,12 +25,11 @@
 
     <p>Premi barra spaziatrice per flappare</p>
 
-
-
     <main>
 
 
         <div id="background_container">
+            <p id="score">Score</p>
             <img src="./assets/img/bird.png" id="bird">
 
             <div class="background1"></div>
@@ -42,15 +41,14 @@
     <div id="volumeBar">
         <div>
             <label for="speed" class="volume-label">Regola la velocità:</label>
-            <input type="range" id="speed" class="volume-input" min="1" max="10" value="5" step="1">
+            <input type="range" id="speed" class="rangeBar" min="1" max="10" value="5" step="1">
             <script src="./scripts.js"></script>
         </div>
         <div>
             <label for="diff" class="volume-label">Regola la difficoltà:</label>
-            <input type="range" id="diff" class="volume-input" min="1" max="10" value="5" step="1">
+            <input type="range" id="diff" class="rangeBar" min="1" max="10" value="5" step="1">
         </div>
     </div>
-
 
     <script src="./scripts.js"></script>
 </body>
