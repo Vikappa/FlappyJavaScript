@@ -201,9 +201,6 @@ function mainMethod() {
 
         }
 
-
-
-
         //aggiorna div punteggio a schermo
         scoreDiv.textContent = "Score: " + punteggio;
 
@@ -215,9 +212,18 @@ function mainMethod() {
         console.log("DiffValue:" + diffValue + " dataType diffValue: " + typeof diffValue)
 
         //aggiorna angolazione di salto in base a malus gravity e aggiorna malus gravity (forse devo portare l'aggiornamento grafico in un altro thread)
-        console.log("Applico " + gravity + " gravity");
         gravity += diffValue * 5
-        bird.style.transform = "rotate(" + gravity + "deg)";
+        if (gravity > 50) {
+            gravity = 50
+        }
+
+        if (gravity < -50) {
+            gravity = -50
+        }
+
+        console.log("Applico " + gravity + " gravity");
+
+        bird.style.transform = "rotate(" + gravity * 1.5 + "deg)";
 
         //aggiorno la posizione in base alla posizione attuale e applico gravity
         posY += gravity;
