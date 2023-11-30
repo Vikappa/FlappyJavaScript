@@ -1,3 +1,6 @@
+// Una volta messo un elemento html dentro un oggetto Js puoi modificare le sue caratteristiche CSS da qua. Javascript è un mondo meraviglioso
+//Un processo simile avviene quando dai a un oggetto.valore = oggettodue.valore per cui se modifico oggettodue.valore oggetto.valore si va a prendere la stessa porzione di memoria
+
 let bird = document.getElementById("bird")
 let speedInput = document.getElementById("speed");
 let diffInput = document.getElementById("diff");
@@ -12,16 +15,22 @@ let punteggio = 0;
 //Valori booleani per controllare il pre, durante e post gioco
 let played = false
 let gameover = false
+let gravity = 0;
 
-// Una volta messo un elemento html dentro un oggetto Js puoi modificare le sue caratteristiche CSS da qua. Javascript è un mondo meraviglioso
-//Un processo simile avviene quando dai a un oggetto.valore = oggettodue.valore per cui se modifico oggettodue.valore oggetto.valore si va a prendere la stessa porzione di memoria
+
+var posX = 0; // Posizione orizzontale di bird
+var posY = 0; // Posizione verticale di bird
+
+//metodi azionati dall'interazione dell'utente
+
 
 function tocco_utente() {
     console.log("Salto azionato")
-
+    gravity -= 45
 }
 
-//metodi che azionati dall'interazione dell'utente
+//Il metodo si spiega da solo: aggiorna l'angolo in senso antiorario di "angolo" gradi a bird
+
 function mobile() {
     tocco_utente()
     console.log("Tocco su schermo rilevato!");
@@ -31,6 +40,7 @@ function barra_spaziatrice(event) {
     // Funzione da eseguire quando l'utente preme la barra spaziatrice
     if (event.code === "Space") {
         console.log("Barra spaziatrice premuta!");
+        tocco_utente()
     }
 }
 
@@ -112,6 +122,9 @@ function mainMethod() {
         //Qui metterò il post game
     }
     else {
+        // check salute larghezza schermo
+
+
         //prima di iniziare le nuove iterazioni, controllo se devo modificare la velocità del metodo
         if (speedValue !== currentSpeed) {
             switch (speedValue) {
@@ -185,8 +198,10 @@ function mainMethod() {
             console.log("Aggiorno currentSpeed speedValue: " + speedValue + " dataType: " + typeof speedValue + " currentSpeed: " + currentSpeed + " dataType: " + typeof currentSpeed)
             console.log("Animazione sfondo classeCSSSfondoAnimato1 e 2 " + window.getComputedStyle(classeCSSSfondoAnimato1) + " " + window.getComputedStyle(classeCSSSfondoAnimato2))
 
-            //
+
         }
+
+
 
 
         //aggiorna div punteggio a schermo
@@ -198,6 +213,15 @@ function mainMethod() {
         console.log("Punteggio:" + parseInt(punteggio) + " dataType punteggio: " + typeof punteggio)
         console.log("SpeedValue" + speedValue + " dataType speedValue: " + typeof speedValue)
         console.log("DiffValue:" + diffValue + " dataType diffValue: " + typeof diffValue)
+
+        //aggiorna angolazione di salto in base a malus gravity e aggiorna malus gravity (forse devo portare l'aggiornamento grafico in un altro thread)
+        console.log("Applico " + gravity + " gravity");
+        gravity += diffValue * 5
+        bird.style.transform = "rotate(" + gravity + "deg)";
+
+        //aggiorno la posizione in base alla posizione attuale e applico gravity
+        posY += gravity;
+        bird.style.top = posY + "px"
     }
 }
 
