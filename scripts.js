@@ -1,15 +1,16 @@
 // Una volta messo un elemento html dentro un oggetto Js puoi modificare le sue caratteristiche CSS da qua. Javascript è un mondo meraviglioso
 //Un processo simile avviene quando dai a un oggetto.valore = oggettodue.valore per cui se modifico oggettodue.valore oggetto.valore si va a prendere la stessa porzione di memoria
 
-let bird = document.getElementById("bird")
-let speedInput = document.getElementById("speed");
-let diffInput = document.getElementById("diff");
+const bird = document.getElementById("bird")
+const speedInput = document.getElementById("speed");
+const diffInput = document.getElementById("diff");
 let inGame = true //aka not gameover
-let scoreDiv = document.getElementById("Score"); // <p> punteggio
-let classeCSSSfondoAnimato1 = document.getElementById("background1")
-let classeCSSSfondoAnimato2 = document.getElementById("background2")
-let divMain = document.getElementById("mainscreen") // importo il div main per targettarlo col listener del salto
-let pTag = document.getElementById("tagP")
+const scoreDiv = document.getElementById("Score"); // <p> punteggio
+const classeCSSSfondoAnimato1 = document.getElementById("background1")
+const classeCSSSfondoAnimato2 = document.getElementById("background2")
+const divMain = document.getElementById("mainscreen") // importo il div main per targettarlo col listener del salto
+const pTag = document.getElementById("tagP")
+const devInfo = document.getElementById("dev_info")
 
 let punteggio = 0;
 //Valori booleani per controllare il pre, durante e post gioco
@@ -17,16 +18,19 @@ let played = false
 let gameover = false
 let gravity = 0;
 
-
 var posX = 0; // Posizione orizzontale di bird
 var posY = 0; // Posizione verticale di bird
 
-//metodi azionati dall'interazione dell'utente
+function sequenza_endgame() {
 
+}
+
+
+//metodi azionati dall'interazione dell'utente
 
 function tocco_utente() {
     console.log("Salto azionato")
-    gravity -= 20 - diffValue
+    gravity -= (15 - diffValue)
 }
 
 //Il metodo si spiega da solo: aggiorna l'angolo in senso antiorario di "angolo" gradi a bird
@@ -44,7 +48,6 @@ function barra_spaziatrice(event) {
     }
 }
 
-
 //speedValue e diffValue sono due parametri numerici che devono ereditare il valore degli input presi dai listener per modificare l'esecuzione del metodo principale mainMethod()
 let speedValue
 let diffValue
@@ -58,9 +61,7 @@ if (window.innerWidth < 650) {
     isMobile = true;
     console.log("User agent mobile")
     pTag.textContent = "Tocca il quadrato di gioco per saltare!"
-
 };
-
 
 // I listener si impostano una sola volta sugli oggetti Js a cui ho fatto prendere in input gli <input type="range"> per aggiornare speedValue e diffValue
 speedInput.addEventListener("input", function () {
@@ -81,7 +82,6 @@ if (isMobile) {
     document.addEventListener("keydown", barra_spaziatrice);
 }
 
-
 bird.style.left = "100px"; // Imposta la posizione orizzontale a 100 pixel
 bird.style.top = "50px";  // Imposta la posizione verticale a 50 pixel
 
@@ -91,21 +91,26 @@ bird.style.top = "50px";  // Imposta la posizione verticale a 50 pixel
 let currentSpeed = parseInt(speedInput.value, 10)// variabile per conservare il valore di speed in ogni iterazione del ciclo principale
 console.log("CurrentSpeed iniziale: " + parseInt(speedInput.value))
 
-
 // In JavaScript non esiste il multithreading, una sorta di multithread può essere realizzata con i metodi con intervallo di secondi.
 // Devo creare un oggetto interValID ma poi per modificare l'esecuzione del metodo principale uso setInterval(mainMethod, milliseconde)
 let intervalId = setInterval(mainMethod, 25);
 
+let contaframe = 0
+
+posX = bird.offsetLeft; // Posizione orizzontale di bird
+posY = bird.offsetTop; // Posizione verticale di bird
+
+
 //Ora inizia il cuore dell'esecuzione del gioco. Finche non siamo in gameover, il ciclo while continuerà a riprodurre ulteriori due o tre cicli (vedrò strada facendo)
 //per aggiornare il progresso in base alla difficoltà e velocità impostate. 
-function mainMethod() {
+function mainMethod(puntifinali) {
+
 
     //check salute
     console.log(navigator.userAgent);
     console.log("Punteggio:" +
         parseInt(punteggio, 10) +
         " Datatype: " + typeof punteggio);
-
 
     // I valori di diffValue e speedValue vengono qui presi come interi dagli oggetti input range dell'html
     var valoreStringaSpeed = speedInput.value // Usa la proprietà .value per ottenere il valore come stringa
@@ -114,16 +119,17 @@ function mainMethod() {
     var valoreStringaDiff = diffInput.value
     var valoreInteroDiff = parseInt(valoreStringaDiff, 10)
 
+
     //variabili intere da usare nel codice (speedValue e diffValue)
     speedValue = valoreInteroSpeed
     diffValue = valoreInteroDiff
 
     if (played) {
-        //Qui metterò il post game
+        sequenza_endgame()
     }
     else {
         // check salute larghezza schermo
-
+        // da fare
 
         //prima di iniziare le nuove iterazioni, controllo se devo modificare la velocità del metodo
         if (speedValue !== currentSpeed) {
@@ -187,23 +193,31 @@ function mainMethod() {
             currentSpeed = speedValue // Per non iterare questo switch ad ogni iterazione del metodo principale
             console.log("Aggiorno currentSpeed speedValue: " + speedValue + " dataType: " + typeof speedValue + " currentSpeed: " + currentSpeed + " dataType: " + typeof currentSpeed)
             console.log("Animazione sfondo classeCSSSfondoAnimato1 e 2 " + window.getComputedStyle(classeCSSSfondoAnimato1) + " " + window.getComputedStyle(classeCSSSfondoAnimato2))
-
-
         }
 
-        //aggiorna div punteggio a schermo
+        //aggiorna p punteggio a schermo
         scoreDiv.textContent = "Score: " + punteggio;
 
+        //aggiorna p X Y bird
+        devInfo.textContent = "actualX:" + posX + "/Y:" + posY
+
+
         // Elaborazione punteggio
-        punteggio += diffValue;
+        contaframe++
+        if (contaframe === 80) {
+            punteggio += diffValue / 10;
+            contaframe = 0
+        }
+
+        //inizio elaborazione ostacoli
 
         console.log("Punteggio:" + parseInt(punteggio) + " dataType punteggio: " + typeof punteggio)
         console.log("SpeedValue" + speedValue + " dataType speedValue: " + typeof speedValue)
         console.log("DiffValue:" + diffValue + " dataType diffValue: " + typeof diffValue)
 
         gravity += 0.1 * diffValue
-        if (gravity > 30) {
-            gravity = 30
+        if (gravity > 10) {
+            gravity = 10
         }
 
         if (gravity < -30) {
@@ -214,9 +228,23 @@ function mainMethod() {
 
         bird.style.transform = "rotate(" + gravity * 1.5 + "deg)";
 
-        //aggiorno la posizione in base alla posizione attuale e applico gravity
+        //check schianto a terra
+        if (posY > 400) {
+            console.log("Schianto a terra")
+            classeCSSSfondoAnimato1.style.animation = 'none';
+            classeCSSSfondoAnimato2.style.animation = 'none';
+            clearInterval(intervalId);
+            played = true
+            gameover = true
+            mainMethod(punteggio)
+        }
+
+        //aggiorno la posizione di bird in base alla posizione attuale e applico gravity
         posY += gravity;
         bird.style.top = posY + "px"
+
+        //renderizzo gli ostacoli
+
     }
 }
 
