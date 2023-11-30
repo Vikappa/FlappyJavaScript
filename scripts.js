@@ -26,7 +26,7 @@ var posY = 0; // Posizione verticale di bird
 
 function tocco_utente() {
     console.log("Salto azionato")
-    gravity -= 45
+    gravity -= 20 - diffValue
 }
 
 //Il metodo si spiega da solo: aggiorna l'angolo in senso antiorario di "angolo" gradi a bird
@@ -94,7 +94,7 @@ console.log("CurrentSpeed iniziale: " + parseInt(speedInput.value))
 
 // In JavaScript non esiste il multithreading, una sorta di multithread può essere realizzata con i metodi con intervallo di secondi.
 // Devo creare un oggetto interValID ma poi per modificare l'esecuzione del metodo principale uso setInterval(mainMethod, milliseconde)
-let intervalId = setInterval(mainMethod, 1200);
+let intervalId = setInterval(mainMethod, 25);
 
 //Ora inizia il cuore dell'esecuzione del gioco. Finche non siamo in gameover, il ciclo while continuerà a riprodurre ulteriori due o tre cicli (vedrò strada facendo)
 //per aggiornare il progresso in base alla difficoltà e velocità impostate. 
@@ -130,61 +130,51 @@ function mainMethod() {
             switch (speedValue) {
                 case 1:
                     console.log("Set velocità = 1  speedValue: " + speedValue + " dataType: " + typeof speedValue + " currentSpeed: " + currentSpeed + " dataType: " + typeof currentSpeed)
-                    setInterval(mainMethod, 2500);
                     classeCSSSfondoAnimato1.style.animationDuration = '4s'
                     classeCSSSfondoAnimato2.style.animationDuration = '4s'
                     break;
                 case 2:
                     console.log("Set velocità = 2 speedValue: " + speedValue + " dataType: " + typeof speedValue + " currentSpeed: " + currentSpeed + " dataType: " + typeof currentSpeed)
-                    setInterval(mainMethod, 1800);
                     classeCSSSfondoAnimato1.style.animationDuration = '2s'
                     classeCSSSfondoAnimato2.style.animationDuration = '2s'
                     break;
                 case 3:
                     console.log("Set velocità = 3 speedValue: " + speedValue + " dataType: " + typeof speedValue + " currentSpeed: " + currentSpeed + " dataType: " + typeof currentSpeed)
-                    setInterval(mainMethod, 1600);
                     classeCSSSfondoAnimato1.style.animationDuration = '1.8s'
                     classeCSSSfondoAnimato2.style.animationDuration = '1.8'
                     break;
                 case 4:
                     console.log("Set velocità = 4 speedValue: " + speedValue + " dataType: " + typeof speedValue + " currentSpeed: " + currentSpeed + " dataType: " + typeof currentSpeed)
-                    setInterval(mainMethod, 1400);
                     classeCSSSfondoAnimato1.style.animationDuration = '1.4s'
                     classeCSSSfondoAnimato2.style.animationDuration = '1.4s'
                     break;
                 case 5:
                     console.log("Set velocità = 5 speedValue: " + speedValue + " dataType: " + typeof speedValue + " currentSpeed: " + currentSpeed + " dataType: " + typeof currentSpeed)
-                    setInterval(mainMethod, 1200);
                     classeCSSSfondoAnimato1.style.animationDuration = '1.2s'
                     classeCSSSfondoAnimato2.style.animationDuration = '1.2s'
                     break;
                 case 6:
                     console.log("Set velocità = 6 speedValue: " + speedValue + " dataType: " + typeof speedValue + " currentSpeed: " + currentSpeed + " dataType: " + typeof currentSpeed)
-                    setInterval(mainMethod, 1000);
                     classeCSSSfondoAnimato1.style.animationDuration = '1s'
                     classeCSSSfondoAnimato2.style.animationDuration = '1s'
                     break;
                 case 7:
                     console.log("Set velocità = 7 speedValue: " + speedValue + " dataType: " + typeof speedValue + " currentSpeed: " + currentSpeed + " dataType: " + typeof currentSpeed)
-                    setInterval(mainMethod, 800);
                     classeCSSSfondoAnimato1.style.animationDuration = '1.1s'
                     classeCSSSfondoAnimato2.style.animationDuration = '1.1s'
                     break;
                 case 8:
                     console.log("Set velocità = 8 speedValue: " + speedValue + " dataType: " + typeof speedValue + " currentSpeed: " + currentSpeed + " dataType: " + typeof currentSpeed)
-                    setInterval(mainMethod, 600);
                     classeCSSSfondoAnimato1.style.animationDuration = '1s'
                     classeCSSSfondoAnimato2.style.animationDuration = '1s'
                     break;
                 case 9:
                     console.log("Set velocità = 9 speedValue: " + speedValue + " dataType: " + typeof speedValue + " currentSpeed: " + currentSpeed + " dataType: " + typeof currentSpeed)
-                    setInterval(mainMethod, 400);
                     classeCSSSfondoAnimato1.style.animationDuration = '0.8s'
                     classeCSSSfondoAnimato2.style.animationDuration = '0.8s'
                     break;
                 case 10:
                     console.log("Set velocità = 10 speedValue: " + speedValue + " dataType: " + typeof speedValue + " currentSpeed: " + currentSpeed + " dataType: " + typeof currentSpeed)
-                    setInterval(mainMethod, 200);
                     classeCSSSfondoAnimato1.style.animationDuration = '0.5s'
                     classeCSSSfondoAnimato2.style.animationDuration = '0.5s'
                     break;
@@ -211,14 +201,13 @@ function mainMethod() {
         console.log("SpeedValue" + speedValue + " dataType speedValue: " + typeof speedValue)
         console.log("DiffValue:" + diffValue + " dataType diffValue: " + typeof diffValue)
 
-        //aggiorna angolazione di salto in base a malus gravity e aggiorna malus gravity (forse devo portare l'aggiornamento grafico in un altro thread)
-        gravity += diffValue * 5
-        if (gravity > 50) {
-            gravity = 50
+        gravity += 0.1 * diffValue
+        if (gravity > 30) {
+            gravity = 30
         }
 
-        if (gravity < -50) {
-            gravity = -50
+        if (gravity < -30) {
+            gravity = -30
         }
 
         console.log("Applico " + gravity + " gravity");
