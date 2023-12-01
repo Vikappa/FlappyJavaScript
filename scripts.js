@@ -14,14 +14,25 @@ const devInfo = document.getElementById("dev_info")
 
 let punteggio = 0;
 //Valori booleani per controllare il pre, durante e post gioco
-let played = false
-let gameover = false
 let gravity = 0;
 
 var posX = 0; // Posizione orizzontale di bird
 var posY = 0; // Posizione verticale di bird
 
 function sequenza_endgame() {
+
+    classeCSSSfondoAnimato1.style.animation = 'none';
+    classeCSSSfondoAnimato2.style.animation = 'none';
+    clearInterval(intervalId);
+
+    var gameOverH2 = document.createElement("h2");
+    var finalScore = document.createElement("h3");
+    gameOverH2.id = "gameoverScreen";
+    finalScore.id = "finalScoreH2"
+    gameOverH2.textContent = "Game Over";
+    finalScore.textContent = "Punteggio: " + punteggio;
+    divMain.appendChild(gameOverH2);
+    divMain.appendChild(finalScore);
 
 }
 
@@ -103,7 +114,7 @@ posY = bird.offsetTop; // Posizione verticale di bird
 
 //Ora inizia il cuore dell'esecuzione del gioco. Finche non siamo in gameover, il ciclo while continuerà a riprodurre ulteriori due o tre cicli (vedrò strada facendo)
 //per aggiornare il progresso in base alla difficoltà e velocità impostate. 
-function mainMethod(puntifinali) {
+function mainMethod() {
 
 
     //check salute
@@ -124,128 +135,122 @@ function mainMethod(puntifinali) {
     speedValue = valoreInteroSpeed
     diffValue = valoreInteroDiff
 
-    if (played) {
+
+
+    // check salute larghezza schermo
+    // da fare
+
+    //prima di iniziare le nuove iterazioni, controllo se devo modificare la velocità del metodo
+    if (speedValue !== currentSpeed) {
+        switch (speedValue) {
+            case 1:
+                console.log("Set velocità = 1  speedValue: " + speedValue + " dataType: " + typeof speedValue + " currentSpeed: " + currentSpeed + " dataType: " + typeof currentSpeed)
+                classeCSSSfondoAnimato1.style.animationDuration = '4s'
+                classeCSSSfondoAnimato2.style.animationDuration = '4s'
+                break;
+            case 2:
+                console.log("Set velocità = 2 speedValue: " + speedValue + " dataType: " + typeof speedValue + " currentSpeed: " + currentSpeed + " dataType: " + typeof currentSpeed)
+                classeCSSSfondoAnimato1.style.animationDuration = '2s'
+                classeCSSSfondoAnimato2.style.animationDuration = '2s'
+                break;
+            case 3:
+                console.log("Set velocità = 3 speedValue: " + speedValue + " dataType: " + typeof speedValue + " currentSpeed: " + currentSpeed + " dataType: " + typeof currentSpeed)
+                classeCSSSfondoAnimato1.style.animationDuration = '1.8s'
+                classeCSSSfondoAnimato2.style.animationDuration = '1.8'
+                break;
+            case 4:
+                console.log("Set velocità = 4 speedValue: " + speedValue + " dataType: " + typeof speedValue + " currentSpeed: " + currentSpeed + " dataType: " + typeof currentSpeed)
+                classeCSSSfondoAnimato1.style.animationDuration = '1.4s'
+                classeCSSSfondoAnimato2.style.animationDuration = '1.4s'
+                break;
+            case 5:
+                console.log("Set velocità = 5 speedValue: " + speedValue + " dataType: " + typeof speedValue + " currentSpeed: " + currentSpeed + " dataType: " + typeof currentSpeed)
+                classeCSSSfondoAnimato1.style.animationDuration = '1.2s'
+                classeCSSSfondoAnimato2.style.animationDuration = '1.2s'
+                break;
+            case 6:
+                console.log("Set velocità = 6 speedValue: " + speedValue + " dataType: " + typeof speedValue + " currentSpeed: " + currentSpeed + " dataType: " + typeof currentSpeed)
+                classeCSSSfondoAnimato1.style.animationDuration = '1s'
+                classeCSSSfondoAnimato2.style.animationDuration = '1s'
+                break;
+            case 7:
+                console.log("Set velocità = 7 speedValue: " + speedValue + " dataType: " + typeof speedValue + " currentSpeed: " + currentSpeed + " dataType: " + typeof currentSpeed)
+                classeCSSSfondoAnimato1.style.animationDuration = '1.1s'
+                classeCSSSfondoAnimato2.style.animationDuration = '1.1s'
+                break;
+            case 8:
+                console.log("Set velocità = 8 speedValue: " + speedValue + " dataType: " + typeof speedValue + " currentSpeed: " + currentSpeed + " dataType: " + typeof currentSpeed)
+                classeCSSSfondoAnimato1.style.animationDuration = '1s'
+                classeCSSSfondoAnimato2.style.animationDuration = '1s'
+                break;
+            case 9:
+                console.log("Set velocità = 9 speedValue: " + speedValue + " dataType: " + typeof speedValue + " currentSpeed: " + currentSpeed + " dataType: " + typeof currentSpeed)
+                classeCSSSfondoAnimato1.style.animationDuration = '0.8s'
+                classeCSSSfondoAnimato2.style.animationDuration = '0.8s'
+                break;
+            case 10:
+                console.log("Set velocità = 10 speedValue: " + speedValue + " dataType: " + typeof speedValue + " currentSpeed: " + currentSpeed + " dataType: " + typeof currentSpeed)
+                classeCSSSfondoAnimato1.style.animationDuration = '0.5s'
+                classeCSSSfondoAnimato2.style.animationDuration = '0.5s'
+                break;
+            default:
+                console.log("Errore default")
+                break;
+        }
+
+        //Check salute animazioni
+        currentSpeed = speedValue // Per non iterare questo switch ad ogni iterazione del metodo principale
+        console.log("Aggiorno currentSpeed speedValue: " + speedValue + " dataType: " + typeof speedValue + " currentSpeed: " + currentSpeed + " dataType: " + typeof currentSpeed)
+        console.log("Animazione sfondo classeCSSSfondoAnimato1 e 2 " + window.getComputedStyle(classeCSSSfondoAnimato1) + " " + window.getComputedStyle(classeCSSSfondoAnimato2))
+    }
+
+    //aggiorna p punteggio a schermo
+    scoreDiv.textContent = "Score: " + Math.round(punteggio);
+
+    //aggiorna p X Y bird
+    devInfo.textContent = "X:" + posX + "/Y:" + posY
+
+
+    // Elaborazione punteggio
+    contaframe++
+    if (contaframe === 80) {
+        punteggio += diffValue / 5
+        contaframe = 0
+    }
+
+    //inizio elaborazione ostacoli
+
+    console.log("Punteggio:" + parseInt(punteggio) + " dataType punteggio: " + typeof punteggio)
+    console.log("SpeedValue" + speedValue + " dataType speedValue: " + typeof speedValue)
+    console.log("DiffValue:" + diffValue + " dataType diffValue: " + typeof diffValue)
+
+    gravity += 0.1 * diffValue
+    if (gravity > 10) {
+        gravity = 10
+    }
+
+    if (gravity < -30) {
+        gravity = -30
+    }
+
+    console.log("Applico " + gravity + " gravity");
+
+    bird.style.transform = "rotate(" + gravity * 1.5 + "deg)";
+
+    //check schianto a terra
+    if (posY > 420) {
+        console.log("Schianto a terra")
         sequenza_endgame()
-    }
-    else {
-        // check salute larghezza schermo
-        // da fare
-
-        //prima di iniziare le nuove iterazioni, controllo se devo modificare la velocità del metodo
-        if (speedValue !== currentSpeed) {
-            switch (speedValue) {
-                case 1:
-                    console.log("Set velocità = 1  speedValue: " + speedValue + " dataType: " + typeof speedValue + " currentSpeed: " + currentSpeed + " dataType: " + typeof currentSpeed)
-                    classeCSSSfondoAnimato1.style.animationDuration = '4s'
-                    classeCSSSfondoAnimato2.style.animationDuration = '4s'
-                    break;
-                case 2:
-                    console.log("Set velocità = 2 speedValue: " + speedValue + " dataType: " + typeof speedValue + " currentSpeed: " + currentSpeed + " dataType: " + typeof currentSpeed)
-                    classeCSSSfondoAnimato1.style.animationDuration = '2s'
-                    classeCSSSfondoAnimato2.style.animationDuration = '2s'
-                    break;
-                case 3:
-                    console.log("Set velocità = 3 speedValue: " + speedValue + " dataType: " + typeof speedValue + " currentSpeed: " + currentSpeed + " dataType: " + typeof currentSpeed)
-                    classeCSSSfondoAnimato1.style.animationDuration = '1.8s'
-                    classeCSSSfondoAnimato2.style.animationDuration = '1.8'
-                    break;
-                case 4:
-                    console.log("Set velocità = 4 speedValue: " + speedValue + " dataType: " + typeof speedValue + " currentSpeed: " + currentSpeed + " dataType: " + typeof currentSpeed)
-                    classeCSSSfondoAnimato1.style.animationDuration = '1.4s'
-                    classeCSSSfondoAnimato2.style.animationDuration = '1.4s'
-                    break;
-                case 5:
-                    console.log("Set velocità = 5 speedValue: " + speedValue + " dataType: " + typeof speedValue + " currentSpeed: " + currentSpeed + " dataType: " + typeof currentSpeed)
-                    classeCSSSfondoAnimato1.style.animationDuration = '1.2s'
-                    classeCSSSfondoAnimato2.style.animationDuration = '1.2s'
-                    break;
-                case 6:
-                    console.log("Set velocità = 6 speedValue: " + speedValue + " dataType: " + typeof speedValue + " currentSpeed: " + currentSpeed + " dataType: " + typeof currentSpeed)
-                    classeCSSSfondoAnimato1.style.animationDuration = '1s'
-                    classeCSSSfondoAnimato2.style.animationDuration = '1s'
-                    break;
-                case 7:
-                    console.log("Set velocità = 7 speedValue: " + speedValue + " dataType: " + typeof speedValue + " currentSpeed: " + currentSpeed + " dataType: " + typeof currentSpeed)
-                    classeCSSSfondoAnimato1.style.animationDuration = '1.1s'
-                    classeCSSSfondoAnimato2.style.animationDuration = '1.1s'
-                    break;
-                case 8:
-                    console.log("Set velocità = 8 speedValue: " + speedValue + " dataType: " + typeof speedValue + " currentSpeed: " + currentSpeed + " dataType: " + typeof currentSpeed)
-                    classeCSSSfondoAnimato1.style.animationDuration = '1s'
-                    classeCSSSfondoAnimato2.style.animationDuration = '1s'
-                    break;
-                case 9:
-                    console.log("Set velocità = 9 speedValue: " + speedValue + " dataType: " + typeof speedValue + " currentSpeed: " + currentSpeed + " dataType: " + typeof currentSpeed)
-                    classeCSSSfondoAnimato1.style.animationDuration = '0.8s'
-                    classeCSSSfondoAnimato2.style.animationDuration = '0.8s'
-                    break;
-                case 10:
-                    console.log("Set velocità = 10 speedValue: " + speedValue + " dataType: " + typeof speedValue + " currentSpeed: " + currentSpeed + " dataType: " + typeof currentSpeed)
-                    classeCSSSfondoAnimato1.style.animationDuration = '0.5s'
-                    classeCSSSfondoAnimato2.style.animationDuration = '0.5s'
-                    break;
-                default:
-                    console.log("Errore default")
-                    break;
-            }
-
-            //Check salute animazioni
-            currentSpeed = speedValue // Per non iterare questo switch ad ogni iterazione del metodo principale
-            console.log("Aggiorno currentSpeed speedValue: " + speedValue + " dataType: " + typeof speedValue + " currentSpeed: " + currentSpeed + " dataType: " + typeof currentSpeed)
-            console.log("Animazione sfondo classeCSSSfondoAnimato1 e 2 " + window.getComputedStyle(classeCSSSfondoAnimato1) + " " + window.getComputedStyle(classeCSSSfondoAnimato2))
-        }
-
-        //aggiorna p punteggio a schermo
-        scoreDiv.textContent = "Score: " + punteggio;
-
-        //aggiorna p X Y bird
-        devInfo.textContent = "actualX:" + posX + "/Y:" + posY
-
-
-        // Elaborazione punteggio
-        contaframe++
-        if (contaframe === 80) {
-            punteggio += diffValue / 10;
-            contaframe = 0
-        }
-
-        //inizio elaborazione ostacoli
-
-        console.log("Punteggio:" + parseInt(punteggio) + " dataType punteggio: " + typeof punteggio)
-        console.log("SpeedValue" + speedValue + " dataType speedValue: " + typeof speedValue)
-        console.log("DiffValue:" + diffValue + " dataType diffValue: " + typeof diffValue)
-
-        gravity += 0.1 * diffValue
-        if (gravity > 10) {
-            gravity = 10
-        }
-
-        if (gravity < -30) {
-            gravity = -30
-        }
-
-        console.log("Applico " + gravity + " gravity");
-
-        bird.style.transform = "rotate(" + gravity * 1.5 + "deg)";
-
-        //check schianto a terra
-        if (posY > 400) {
-            console.log("Schianto a terra")
-            classeCSSSfondoAnimato1.style.animation = 'none';
-            classeCSSSfondoAnimato2.style.animation = 'none';
-            clearInterval(intervalId);
-            played = true
-            gameover = true
-            mainMethod(punteggio)
-        }
-
-        //aggiorno la posizione di bird in base alla posizione attuale e applico gravity
-        posY += gravity;
-        bird.style.top = posY + "px"
-
-        //renderizzo gli ostacoli
 
     }
+
+    //aggiorno la posizione di bird in base alla posizione attuale e applico gravity
+    posY += gravity;
+    bird.style.top = posY + "px"
+
+    //renderizzo gli ostacoli
+
+
 }
 
 

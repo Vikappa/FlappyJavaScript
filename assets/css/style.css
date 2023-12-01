@@ -24,8 +24,26 @@ p {
     margin: 3px;
 }
 
-#score {
-    background: rgba(255, 255, 255, 0);
+#Score {
+    width: 100%;
+    text-align: center;
+}
+
+#gameoverScreen {
+    color: red;
+    text-align: center;
+    font-size: 120px;
+    margin-top: 15%;
+    position: relative;
+    font-family: 'Pixelify Sans', sans-serif;
+}
+
+#finalScoreH2 {
+    color: red;
+    text-align: center;
+    font-size: 60px;
+    position: relative;
+    font-family: 'Pixelify Sans', sans-serif;
 }
 
 #dev_info {
@@ -37,7 +55,6 @@ p {
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
-    z-index: 1;
 }
 
 
