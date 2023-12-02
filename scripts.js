@@ -42,26 +42,29 @@ function sequenza_endgame() {
 }
 
 // Metodo per creare i tubi ostacolo
-function tubo(x, y) { // x e y per posizionamento iniziale
+function tubo() {
     let canvaTubo = document.createElement("canvas"); //creo un elemento canvas da aggiungere all'html. canvas è un tipo di elemento html molto versatile per la rappresentazione grafica che mi accingo a sperimentare solo adesso
+    canvaTubo.style.position = "absolute";
 
     let ctx = canvaTubo.getContext("2d"); // Ottieni il contesto di disegno 2D
 
     let numeroSegmenti = Math.floor(Math.random() * 7) + 1 // genero uno numero casuale da 1 a 7 per contare quanti pezzi di collo del tubo sarà alto l'ostacolo
-    const segmentoCollo = document.createElement("img") // creo elemento per importare l'immagine del collo
-    const segmentoTop = document.createElement("img") // creo elemento per importare l'immagine del top
-    segmentoCollo.src = "./assets/img/base.png";
-    segmentoTop.src = "./assets/img/top.png";
 
-    canvaTubo.style.height = segmentoTop.height + numeroSegmenti * (segmentoCollo.height) // imposto un valore assoluto per l'altezza dell'elemento
-    canvaTubo.style.width = segmentoCollo.width // ho scelto di impostare la larghezza del canvas finale basata sulla larghezza del collo per semplificare il gameplay
+    const imgColloDaHtml = document.getElementById("colloHtml") //importo la grafica dagli elementi grafici nascosti nell'html
+    const imgTopDaHtml = document.getElementById("topHtml")  //importo la grafica dagli elementi grafici nascosti nell'html
 
-    for (let index = 0; index < numeroSegmenti; index++) {//disegno il tubo mettendo N volte il segmento di base, in ogni iterazione del ciclo i pezzi vengono aggiunti più in alto
-        ctx.drawImage(segmentoCollo, 0, 0 + index * segmentoCollo.height) // La posizione a cui viene disegnato il segmento si aggiorna man mano
+    canvaTubo.offsetHeight = imgTopDaHtml.offsetHeight + numeroSegmenti * (imgColloDaHtml.offsetHeight) + "px"// imposto un valore assoluto per l'altezza dell'elemento
+    canvaTubo.offsetWidth = imgColloDaHtml.offsetWidth + "px  " // ho scelto di impostare la larghezza del canvas finale basata sulla larghezza del collo per semplificare il gameplay
+
+    //disegno nel contex del canvas di ritorno
+    ctx.drawImage(imgTopDaHtml, 0, 0)
+    for (let index = numeroSegmenti; index >= 0; index--) {//disegno il tubo mettendo N volte il segmento di base, in ogni iterazione del ciclo i pezzi vengono aggiunti più in basso
+        ctx.drawImage(imgColloDaHtml, 1, imgTopDaHtml.offsetHeight + index * imgColloDaHtml.offsetHeight) // La posizione a cui viene disegnato il segmento si aggiorna man mano
     }
-    ctx.drawImage(segmentoTop, 0, numeroSegmenti + segmentoTop.height)
+    return canvaTubo
 }
 
+const tubi = []
 
 //metodi azionati dall'interazione dell'utente
 function tocco_utente() {
@@ -134,8 +137,7 @@ posX = bird.offsetLeft; // Posizione orizzontale di bird
 posY = bird.offsetTop; // Posizione verticale di bird
 
 
-//Ora inizia il cuore dell'esecuzione del gioco. Finche non siamo in gameover, il ciclo while continuerà a riprodurre ulteriori due o tre cicli (vedrò strada facendo)
-//per aggiornare il progresso in base alla difficoltà e velocità impostate. 
+//Ora inizia il cuore dell'esecuzione del gioco. il metodo intervalMainMethod continuerà a riprodurre mainmethod finchè non viene resettato
 function mainMethod() {
 
 
@@ -233,20 +235,38 @@ function mainMethod() {
 
     // Elaborazione punteggio
     contaframe++
-    if (contaframe === 80) {
+    if (contaframe % 80 === 0) {
         punteggio += 0.5 * diffValue
-        contaframe = 0
     }
 
+
     //inizio elaborazione ostacoli
-    tubo(100, 385)
+    if (contaframe % 100 === 0 && contaframe !== 0) {
+        console.log('%cPosiziono tubo', 'color: red');
+
+
+        const tuboDaPosizionare = tubo()
+        tubi.push(tuboDaPosizionare)
+
+        divMain.appendChild(tuboDaPosizionare)
+        tuboDaPosizionare.style.top = (457 - tuboDaPosizionare.offsetHeight) + "px"
+        tuboDaPosizionare.style.left = (457) - tuboDaPosizionare.offsetWidth + "px"
+    }
+
+    //muovo i tubi
+
+    for (let tubs = 0; tubi < tubs.length; tubs++) {
+        tubi[tubs].style.left = 1 + "px"
+    }
+
+
 
     console.log("Punteggio:" + parseInt(punteggio) + " dataType punteggio: " + typeof punteggio)
     console.log("SpeedValue" + speedValue + " dataType speedValue: " + typeof speedValue)
     console.log("DiffValue:" + diffValue + " dataType diffValue: " + typeof diffValue)
 
 
-    // aggiungo difficoltà a gravity
+    // aggiungo difficoltà e gravity
     gravity += 0.1 * diffValue
 
     //metto un tetto agli sbalzi di gravity

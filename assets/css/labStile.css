@@ -11,5 +11,9 @@ main {
     right: 0;
 
     margin: 100px 100px 0 0;
+}
 
+#container_per_grafica_da_caricare_in_js img {
+    opacity: 0;
+    position: absolute;
 }

@@ -9,6 +9,11 @@ main {
     height: 457px;
 }
 
+.hidden {
+    position: absolute;
+    opacity: 0;
+}
+
 header h1 {
     font-size: 2em;
     font-family: 'Orbitron', sans-serif;
