@@ -13,17 +13,22 @@ const pTag = document.getElementById("tagP")
 const devInfo = document.getElementById("dev_info")
 
 let punteggio = 0;
-//Valori booleani per controllare il pre, durante e post gioco
-let gravity = 0;
+
+let gravity = 0; // variabile per accumulare gli up and down dell'uccellino tra un frame e l'altro
 
 var posX = 0; // Posizione orizzontale di bird
 var posY = 0; // Posizione verticale di bird
 
-function sequenza_endgame() {
+let contaframe = 0 // Conto i frame per fare in modo che alcuni metodi si attivino ogni N multipli del framerate base che è di 25 millisecondi
 
+
+function sequenza_endgame() {
+    //fermo animazione di sfondo
     classeCSSSfondoAnimato1.style.animation = 'none';
     classeCSSSfondoAnimato2.style.animation = 'none';
-    clearInterval(intervalId);
+
+    // cleannare l'interval lo resetta fermando l'esecuzione del main method
+    clearInterval(intervalMainMethod);
 
     var gameOverH2 = document.createElement("h2");
     var finalScore = document.createElement("h3");
@@ -43,8 +48,6 @@ function tocco_utente() {
     console.log("Salto azionato")
     gravity -= (15 - diffValue)
 }
-
-//Il metodo si spiega da solo: aggiorna l'angolo in senso antiorario di "angolo" gradi a bird
 
 function mobile() {
     tocco_utente()
@@ -103,10 +106,9 @@ let currentSpeed = parseInt(speedInput.value, 10)// variabile per conservare il 
 console.log("CurrentSpeed iniziale: " + parseInt(speedInput.value))
 
 // In JavaScript non esiste il multithreading, una sorta di multithread può essere realizzata con i metodi con intervallo di secondi.
-// Devo creare un oggetto interValID ma poi per modificare l'esecuzione del metodo principale uso setInterval(mainMethod, milliseconde)
-let intervalId = setInterval(mainMethod, 25);
+// Devo creare un oggetto "interval" ma poi per modificare l'esecuzione del metodo principale uso setInterval(mainMethod, milliseconde)
+let intervalMainMethod = setInterval(mainMethod, 25);
 
-let contaframe = 0
 
 posX = bird.offsetLeft; // Posizione orizzontale di bird
 posY = bird.offsetTop; // Posizione verticale di bird
@@ -145,8 +147,8 @@ function mainMethod() {
         switch (speedValue) {
             case 1:
                 console.log("Set velocità = 1  speedValue: " + speedValue + " dataType: " + typeof speedValue + " currentSpeed: " + currentSpeed + " dataType: " + typeof currentSpeed)
-                classeCSSSfondoAnimato1.style.animationDuration = '4s'
-                classeCSSSfondoAnimato2.style.animationDuration = '4s'
+                classeCSSSfondoAnimato1.style.animationDuration = '3s'
+                classeCSSSfondoAnimato2.style.animationDuration = '3s'
                 break;
             case 2:
                 console.log("Set velocità = 2 speedValue: " + speedValue + " dataType: " + typeof speedValue + " currentSpeed: " + currentSpeed + " dataType: " + typeof currentSpeed)
@@ -156,7 +158,7 @@ function mainMethod() {
             case 3:
                 console.log("Set velocità = 3 speedValue: " + speedValue + " dataType: " + typeof speedValue + " currentSpeed: " + currentSpeed + " dataType: " + typeof currentSpeed)
                 classeCSSSfondoAnimato1.style.animationDuration = '1.8s'
-                classeCSSSfondoAnimato2.style.animationDuration = '1.8'
+                classeCSSSfondoAnimato2.style.animationDuration = '1.8z'
                 break;
             case 4:
                 console.log("Set velocità = 4 speedValue: " + speedValue + " dataType: " + typeof speedValue + " currentSpeed: " + currentSpeed + " dataType: " + typeof currentSpeed)
@@ -219,12 +221,31 @@ function mainMethod() {
     }
 
     //inizio elaborazione ostacoli
+    function tubo(x, y) { // x e y per posizionamento iniziale
+        let canvaTubo = document.createElement("canvas"); //creo un elemento canvas da aggiungere all'html. canvas è un tipo di elemento html molto versatile per la rappresentazione grafica che mi accingo a sperimentare solo adesso
+        let numeroSegmenti = Math.floor(Math.random() * 7) + 1 // genero uno numero casuale da 1 a 7 per contare quanti pezzi di collo del tubo sarà alto l'ostacolo
+        const segmentoCollo = document.createElement("img") // creo elemento per importare l'immagine del collo
+        const segmentoTop = document.createElement("img") // creo elemento per importare l'immagine del top
+        segmentoCollo.src = 'path/to/segmentoTop.png';
+        segmentoTopImg.src = 'path/to/segmentoTop.png';
+
+        canvaTubo.style.height = segmentoTop.height + numeroSegmenti * (segmentoCollo.height) // imposto un valore assoluto per l'altezza dell'elemento
+        canvaTubo.style.width = segmentoCollo.width // ho scelto di impostare la larghezza del canvas finale basata sulla larghezza del collo per semplificare il gameplay
+
+
+
+    }
+
 
     console.log("Punteggio:" + parseInt(punteggio) + " dataType punteggio: " + typeof punteggio)
     console.log("SpeedValue" + speedValue + " dataType speedValue: " + typeof speedValue)
     console.log("DiffValue:" + diffValue + " dataType diffValue: " + typeof diffValue)
 
+
+    // aggiungo difficoltà a gravity
     gravity += 0.1 * diffValue
+
+    //metto un tetto agli sbalzi di gravity
     if (gravity > 10) {
         gravity = 10
     }
@@ -233,23 +254,19 @@ function mainMethod() {
         gravity = -30
     }
 
+    //rotazione di bird in base alla gravity
     console.log("Applico " + gravity + " gravity");
-
     bird.style.transform = "rotate(" + gravity * 1.5 + "deg)";
 
     //check schianto a terra
-    if (posY > 420) {
+    if (posY > 390 || (posY + gravity) > 393) {
         console.log("Schianto a terra")
         sequenza_endgame()
-
     }
 
     //aggiorno la posizione di bird in base alla posizione attuale e applico gravity
     posY += gravity;
     bird.style.top = posY + "px"
-
-    //renderizzo gli ostacoli
-
 
 }
 
