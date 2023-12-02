@@ -1,0 +1,15 @@
+body {}
+
+main {
+    display: block;
+    width: 60vh;
+    height: 60vh;
+    background-color: rgb(129, 255, 167);
+    position: fixed;
+
+    /* Allinea il lato destro del div alla parte destra della finestra */
+    right: 0;
+
+    margin: 100px 100px 0 0;
+
+}

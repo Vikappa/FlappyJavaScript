@@ -30,20 +30,40 @@ function sequenza_endgame() {
     // cleannare l'interval lo resetta fermando l'esecuzione del main method
     clearInterval(intervalMainMethod);
 
+    // creo, riempio e metto nel div le scritte gameover, con un #id css per modificarli tramite il foglio di stile
     var gameOverH2 = document.createElement("h2");
     var finalScore = document.createElement("h3");
     gameOverH2.id = "gameoverScreen";
     finalScore.id = "finalScoreH2"
     gameOverH2.textContent = "Game Over";
-    finalScore.textContent = "Punteggio: " + punteggio;
+    finalScore.textContent = "Punteggio: " + Math.round(punteggio);
     divMain.appendChild(gameOverH2);
     divMain.appendChild(finalScore);
+}
 
+// Metodo per creare i tubi ostacolo
+function tubo(x, y) { // x e y per posizionamento iniziale
+    let canvaTubo = document.createElement("canvas"); //creo un elemento canvas da aggiungere all'html. canvas è un tipo di elemento html molto versatile per la rappresentazione grafica che mi accingo a sperimentare solo adesso
+
+    let ctx = canvaTubo.getContext("2d"); // Ottieni il contesto di disegno 2D
+
+    let numeroSegmenti = Math.floor(Math.random() * 7) + 1 // genero uno numero casuale da 1 a 7 per contare quanti pezzi di collo del tubo sarà alto l'ostacolo
+    const segmentoCollo = document.createElement("img") // creo elemento per importare l'immagine del collo
+    const segmentoTop = document.createElement("img") // creo elemento per importare l'immagine del top
+    segmentoCollo.src = "./assets/img/base.png";
+    segmentoTop.src = "./assets/img/top.png";
+
+    canvaTubo.style.height = segmentoTop.height + numeroSegmenti * (segmentoCollo.height) // imposto un valore assoluto per l'altezza dell'elemento
+    canvaTubo.style.width = segmentoCollo.width // ho scelto di impostare la larghezza del canvas finale basata sulla larghezza del collo per semplificare il gameplay
+
+    for (let index = 0; index < numeroSegmenti; index++) {//disegno il tubo mettendo N volte il segmento di base, in ogni iterazione del ciclo i pezzi vengono aggiunti più in alto
+        ctx.drawImage(segmentoCollo, 0, 0 + index * segmentoCollo.height) // La posizione a cui viene disegnato il segmento si aggiorna man mano
+    }
+    ctx.drawImage(segmentoTop, 0, numeroSegmenti + segmentoTop.height)
 }
 
 
 //metodi azionati dall'interazione dell'utente
-
 function tocco_utente() {
     console.log("Salto azionato")
     gravity -= (15 - diffValue)
@@ -74,7 +94,6 @@ let isMobile = false;
 if (window.innerWidth < 650) {
     isMobile = true;
     console.log("User agent mobile")
-    pTag.textContent = "Tocca il quadrato di gioco per saltare!"
 };
 
 // I listener si impostano una sola volta sugli oggetti Js a cui ho fatto prendere in input gli <input type="range"> per aggiornare speedValue e diffValue
@@ -91,6 +110,7 @@ diffInput.addEventListener("input", function () {
 // Aggiungi un listener per il tocco su schermo
 if (isMobile) {
     divMain.addEventListener("touchstart", mobile); //aggiungo a divMain un listener che aziona il metodo mobile()
+    pTag.textContent = "Tocca il quadrato di gioco per saltare!"
 } else {
     // Aggiungi un listener per la pressione della barra spaziatrice
     document.addEventListener("keydown", barra_spaziatrice);
@@ -136,8 +156,6 @@ function mainMethod() {
     //variabili intere da usare nel codice (speedValue e diffValue)
     speedValue = valoreInteroSpeed
     diffValue = valoreInteroDiff
-
-
 
     // check salute larghezza schermo
     // da fare
@@ -216,26 +234,12 @@ function mainMethod() {
     // Elaborazione punteggio
     contaframe++
     if (contaframe === 80) {
-        punteggio += diffValue / 5
+        punteggio += 0.5 * diffValue
         contaframe = 0
     }
 
     //inizio elaborazione ostacoli
-    function tubo(x, y) { // x e y per posizionamento iniziale
-        let canvaTubo = document.createElement("canvas"); //creo un elemento canvas da aggiungere all'html. canvas è un tipo di elemento html molto versatile per la rappresentazione grafica che mi accingo a sperimentare solo adesso
-        let numeroSegmenti = Math.floor(Math.random() * 7) + 1 // genero uno numero casuale da 1 a 7 per contare quanti pezzi di collo del tubo sarà alto l'ostacolo
-        const segmentoCollo = document.createElement("img") // creo elemento per importare l'immagine del collo
-        const segmentoTop = document.createElement("img") // creo elemento per importare l'immagine del top
-        segmentoCollo.src = 'path/to/segmentoTop.png';
-        segmentoTopImg.src = 'path/to/segmentoTop.png';
-
-        canvaTubo.style.height = segmentoTop.height + numeroSegmenti * (segmentoCollo.height) // imposto un valore assoluto per l'altezza dell'elemento
-        canvaTubo.style.width = segmentoCollo.width // ho scelto di impostare la larghezza del canvas finale basata sulla larghezza del collo per semplificare il gameplay
-
-
-
-    }
-
+    tubo(100, 385)
 
     console.log("Punteggio:" + parseInt(punteggio) + " dataType punteggio: " + typeof punteggio)
     console.log("SpeedValue" + speedValue + " dataType speedValue: " + typeof speedValue)
@@ -259,7 +263,7 @@ function mainMethod() {
     bird.style.transform = "rotate(" + gravity * 1.5 + "deg)";
 
     //check schianto a terra
-    if (posY > 390 || (posY + gravity) > 393) {
+    if (posY > 393 || (posY + gravity) > 393) {
         console.log("Schianto a terra")
         sequenza_endgame()
     }
