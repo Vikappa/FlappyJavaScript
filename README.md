@@ -1,3 +1,59 @@
-# FlappyJavaScript
-#Tentativo di replica di FlappyBird in JavaScript scritto durante il corso di fullstack epicode
-<div><ul><caption>Elementi utili appresi durante la realizzazione del progetto</caption></ul><li>Manipolazione del dom da JS</li><li>Metodi interval</li><li>Html canvas</li><li>input da mobile</li><li></li></div>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta description="Flappy Bird realizzato in JS per esercizio">
+    <link rel="stylesheet" href="./assets/css/reset.css">
+    <link rel="stylesheet" href="./assets/css/style.css">
+    <link rel="stylesheet" href="./assets/css/animations.css">
+    <title>Flap flap flap</title>
+</head>
+
+<body>
+    <header>
+
+        <h1>
+            Flappy bird JavaScript
+        </h1>
+
+        <h6>Vincenzo Costantini</h6>
+
+    </header>
+
+    <p id="tagP">Premi barra spaziatrice per flappare</p>
+    <p id="Score">Sto per iniziare a flappare...</p>
+
+    <main id="mainscreen">
+
+        <div id="background_container">
+            <img src="./assets/img/bird.png" id="bird">
+            <p id="dev_info">actualX:/Y:</p>
+
+            <div class="background1" id="background1"></div>
+            <div class="background2" id="background2"></div>
+        </div>
+
+    </main>
+
+    <div id="volumeBar">
+        <div>
+            <label for="speed" class="volume-label">Regola la velocità:</label>
+            <input type="range" id="speed" class="rangeBar" min="1" max="10" value="5" step="1">
+        </div>
+        <div>
+            <label for="diff" class="volume-label">Regola la gravità:</label>
+            <input type="range" id="diff" class="rangeBar" min="1" max="10" value="5" step="1">
+        </div>
+    </div>
+
+    <img src="./assets/img/base.png" id="colloHtml" class="hidden">
+    <img src="./assets/img/top.png" id="topHtml" class="hidden">
+
+    <script src="./scripts.js"></script>
+</body>
+
+</html>
+
+<link rel="stylesheet" href="./assets/img/base.png">
