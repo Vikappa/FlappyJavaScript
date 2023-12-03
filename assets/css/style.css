@@ -104,3 +104,8 @@ header {
     display: flex;
     flex-direction: row;
 }
+
+#replay {
+    display: flex;
+    margin-left: 47%;
+}

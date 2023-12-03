@@ -348,4 +348,6 @@ function mainMethod() {
 
 }
 
-
+document.getElementById("replay").addEventListener("click", function () {
+    location.reload();
+});
