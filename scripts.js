@@ -69,12 +69,12 @@ function tubo(numeroSegmenti) {
 
 
     canvaTubo.height = imgTopDaHtml.offsetHeight + numeroSegmenti * imgColloDaHtml.offsetHeight;
-    canvaTubo.width = imgColloDaHtml.offsetWidth;
+    canvaTubo.width = imgTopDaHtml.offsetWidth;
 
     // Disegna nel contesto del canvas di ritorno
     ctx.drawImage(imgTopDaHtml, 0, 0);
     for (let index = numeroSegmenti; index >= 0; index--) {
-        ctx.drawImage(imgColloDaHtml, 1, imgTopDaHtml.offsetHeight + index * imgColloDaHtml.offsetHeight);
+        ctx.drawImage(imgColloDaHtml, 2, imgTopDaHtml.offsetHeight + index * imgColloDaHtml.offsetHeight);
     }
 
     return canvaTubo;
@@ -92,12 +92,12 @@ function tuboSottosopra(numeroSegmenti) {
 
 
     canvaTubo.height = imgTopDaHtml.offsetHeight + numeroSegmenti * imgColloDaHtml.offsetHeight;
-    canvaTubo.width = imgColloDaHtml.offsetWidth;
+    canvaTubo.width = imgTopDaHtml.offsetWidth;
 
     // Disegna nel contesto del canvas di ritorno
     ctx.drawImage(imgTopDaHtml, 0, 0);
     for (let index = numeroSegmenti; index >= 0; index--) {
-        ctx.drawImage(imgColloDaHtml, 1, imgTopDaHtml.offsetHeight + index * imgColloDaHtml.offsetHeight);
+        ctx.drawImage(imgColloDaHtml, 2, imgTopDaHtml.offsetHeight + index * imgColloDaHtml.offsetHeight);
     }
 
     canvaTubo.style.transform = "rotate(180deg)";
@@ -282,7 +282,7 @@ function mainMethod() {
 
 
     //inizio elaborazione ostacoli
-    if (contaframe % 100 === 0 && contaframe !== 0) {
+    if (contaframe % 50 === 0 && contaframe !== 0) {
         console.log('%cPosiziono tubo', 'color: red');
 
         let altezza_tubo_basso = Math.floor(Math.random() * 45) + 1; // Gemero un numero casuale di segmenti per fare in modo, lo lascio come variabile interna dell'oggetto tubo risultato del metodo
@@ -311,9 +311,6 @@ function mainMethod() {
     if (tubi.length > 10) {
         tubi.splice(0, 1)
     }
-
-
-
 
     console.log("Punteggio:" + parseInt(punteggio) + " dataType punteggio: " + typeof punteggio)
     console.log("SpeedValue" + speedValue + " dataType speedValue: " + typeof speedValue)
