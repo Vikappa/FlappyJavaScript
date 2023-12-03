@@ -42,15 +42,14 @@ function sequenza_endgame() {
 }
 
 // Metodo per creare i tubi ostacolo
-function tubo() {
+function tubo(numeroSegmenti) {
     let canvaTubo = document.createElement("canvas");
     canvaTubo.style.position = "absolute";
 
     let ctx = canvaTubo.getContext("2d"); //per modificare un elemento canvas bisogna creare una variabile per il suo context e fare drawImage su quello
 
-    this.numeroSegmenti = Math.floor(Math.random() * 7) + 1; // Gemero un numero casuale di segmenti per fare in modo, lo lascio come variabile interna dell'oggetto tubo risultato del metodo
 
-    const imgColloDaHtml = document.getElementById("colloHtml"); //importo le immagini del tubo dai  
+    const imgColloDaHtml = document.getElementById("colloHtml"); //importo le immagini del tubo dai <img> dell'html 
     const imgTopDaHtml = document.getElementById("topHtml");
 
 
@@ -66,6 +65,30 @@ function tubo() {
     return canvaTubo;
 }
 
+function tuboSottosopra(numeroSegmenti) {
+    let canvaTubo = document.createElement("canvas");
+    canvaTubo.style.position = "absolute";
+
+    let ctx = canvaTubo.getContext("2d"); //per modificare un elemento canvas bisogna creare una variabile per il suo context e fare drawImage su quello
+
+
+    const imgColloDaHtml = document.getElementById("colloHtml"); //importo le immagini del tubo dai <img> dell'html 
+    const imgTopDaHtml = document.getElementById("topHtml");
+
+
+    canvaTubo.height = imgTopDaHtml.offsetHeight + numeroSegmenti * imgColloDaHtml.offsetHeight;
+    canvaTubo.width = imgColloDaHtml.offsetWidth;
+
+    // Disegna nel contesto del canvas di ritorno
+    ctx.drawImage(imgTopDaHtml, 0, 0);
+    for (let index = numeroSegmenti; index >= 0; index--) {
+        ctx.drawImage(imgColloDaHtml, 1, imgTopDaHtml.offsetHeight + index * imgColloDaHtml.offsetHeight);
+    }
+
+    canvaTubo.style.transform = "rotate(180deg)";
+
+    return canvaTubo;
+}
 
 const tubi = []
 
@@ -247,16 +270,23 @@ function mainMethod() {
     if (contaframe % 100 === 0 && contaframe !== 0) {
         console.log('%cPosiziono tubo', 'color: red');
 
+        let altezza_tubo_basso = Math.floor(Math.random() * 35) + 1; // Gemero un numero casuale di segmenti per fare in modo, lo lascio come variabile interna dell'oggetto tubo risultato del metodo
 
-        const tuboDaPosizionare = tubo()
+        const tuboDaPosizionare = tubo(altezza_tubo_basso)
+        const tuboDaAppendere = tuboSottosopra(altezza_tubo_basso)
+
         tubi.push(tuboDaPosizionare)
+        tubi.push(tuboDaAppendere)
 
         divMain.appendChild(tuboDaPosizionare)
+        divMain.appendChild(tuboDaAppendere)
         tuboDaPosizionare.style.top = (457 - tuboDaPosizionare.offsetHeight) + "px"
-        tuboDaPosizionare.style.left = (457) - tuboDaPosizionare.offsetWidth + "px"
+        tuboDaPosizionare.style.top = (457 - tuboDaAppendere.offsetHeight) + "px"
+        tuboDaPosizionare.style.left = 457 + "px"
+        tuboDaAppendere.style.left = 457 + "px"
     }
 
-    //muovo i tubi
+    //muovo i tubi e accorcio l'array tubi
 
     for (let i = 0; i < tubi.length; i++) {
         tubi[i].style.left = tubi[i].offsetLeft - (1 + speedValue) + "px"
