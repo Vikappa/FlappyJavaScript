@@ -41,6 +41,21 @@ function sequenza_endgame() {
     divMain.appendChild(finalScore);
 }
 
+function checkCollisione(bird, tubo) {
+    let birdX = bird.offsetLeft; // Posizione orizzontale di bird
+    let birdY = bird.offsetTop; // Posizione verticale di bird 
+    //tieni a mente che l'angolo X=0 Y=0 del main è in alto a sinistra
+    let angoloTopLeftTubo = tubo.offsetTop
+    let angoloBottomLeftTubo = tubo.offsetTop + tubo.height
+    let angoloTopLeft2 = tubo.offsetLeft
+    let angoloTopRightTubo = tubo.offsetLeft + tubo.width
+
+    //ho messo dei +30 nei parametri di confronto degli scontri per prevenire la comprenetrazione del disegno, visto che il bird non ha un area ma solo una coordinata cardine X Y
+    if (birdY <= angoloBottomLeftTubo && birdY + 30 >= angoloTopLeftTubo &&
+        birdX + 30 >= angoloTopLeft2 && birdX <= angoloTopRightTubo)
+        sequenza_endgame()
+}
+
 // Metodo per creare i tubi ostacolo
 function tubo(numeroSegmenti) {
     let canvaTubo = document.createElement("canvas");
@@ -291,7 +306,7 @@ function mainMethod() {
 
     for (let i = 0; i < tubi.length; i++) {
         tubi[i].style.left = tubi[i].offsetLeft - (1 + speedValue) + "px"
-
+        checkCollisione(bird, tubi[i])
     }
     if (tubi.length > 10) {
         tubi.splice(0, 1)
