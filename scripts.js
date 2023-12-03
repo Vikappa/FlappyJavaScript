@@ -292,8 +292,9 @@ function mainMethod() {
         tubi[i].style.left = tubi[i].offsetLeft - (1 + speedValue) + "px"
         console.error("Muovo tubi n:" + tubi.length)
     }
-
-
+    if (tubi.length > 10) {
+        tubi.splice(0, 1)
+    }
 
     console.log("Punteggio:" + parseInt(punteggio) + " dataType punteggio: " + typeof punteggio)
     console.log("SpeedValue" + speedValue + " dataType speedValue: " + typeof speedValue)
