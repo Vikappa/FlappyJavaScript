@@ -23,15 +23,11 @@
         transform: translateY(0) rotate(0deg);
     }
 
-    18% {
+    24% {
         transform: translateY(-50px) rotate(720deg);
     }
 
-    99% {
-        transform: translateY(399px) rotate(3599deg);
-    }
-
     100% {
-        transform: translateY(400px) rotate(3600deg);
+        transform: translateY(600px) rotate(3600deg);
     }
 }
