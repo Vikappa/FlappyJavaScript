@@ -35,11 +35,13 @@ function sequenza_endgame() {
     var finalScore = document.createElement("h3");
     gameOverH2.id = "gameoverScreen";
     finalScore.id = "finalScoreH2"
+    bird.style.animation = "saliScendi 2s linear";
     gameOverH2.textContent = "Game Over";
     finalScore.textContent = "Punteggio: " + Math.round(punteggio);
     divMain.appendChild(gameOverH2);
     divMain.appendChild(finalScore);
 }
+
 
 function checkCollisione(bird, tubo) {
     let birdX = bird.offsetLeft; // Posizione orizzontale di bird

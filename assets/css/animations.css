@@ -7,3 +7,31 @@
         transform: translateX(-100%);
     }
 }
+
+@keyframes rotazione {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes saliScendi {
+    0% {
+        transform: translateY(0) rotate(0deg);
+    }
+
+    18% {
+        transform: translateY(-50px) rotate(720deg);
+    }
+
+    99% {
+        transform: translateY(399px) rotate(3599deg);
+    }
+
+    100% {
+        transform: translateY(400px) rotate(3600deg);
+    }
+}
