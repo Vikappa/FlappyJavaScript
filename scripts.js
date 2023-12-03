@@ -342,8 +342,14 @@ function mainMethod() {
     }
 
     //aggiorno la posizione di bird in base alla posizione attuale e applico gravity
-    posY += gravity;
-    bird.style.top = posY + "px"
+    if ((bird.style.top += gravity) <= 0) {
+        posY = 0
+        gravity = 0
+    } else {
+        posY += gravity;
+        bird.style.top = posY + "px"
+    }
+
 }
 
 document.getElementById("replay").addEventListener("click", function () {
