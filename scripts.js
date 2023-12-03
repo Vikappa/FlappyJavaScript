@@ -270,31 +270,35 @@ function mainMethod() {
     if (contaframe % 100 === 0 && contaframe !== 0) {
         console.log('%cPosiziono tubo', 'color: red');
 
-        let altezza_tubo_basso = Math.floor(Math.random() * 35) + 1; // Gemero un numero casuale di segmenti per fare in modo, lo lascio come variabile interna dell'oggetto tubo risultato del metodo
+        let altezza_tubo_basso = Math.floor(Math.random() * 45) + 1; // Gemero un numero casuale di segmenti per fare in modo, lo lascio come variabile interna dell'oggetto tubo risultato del metodo
 
-        const tuboDaPosizionare = tubo(altezza_tubo_basso)
-        const tuboDaAppendere = tuboSottosopra(altezza_tubo_basso)
+        const tuboDaPosizionare = tubo(altezza_tubo_basso) // Genero un tubo con altezza casuale
+        const tuboDaAppendere = tuboSottosopra(457 - (altezza_tubo_basso + 413)) // Genero il tubo sottosopra con altezza relativa al tubo inferiore
 
         tubi.push(tuboDaPosizionare)
         tubi.push(tuboDaAppendere)
 
         divMain.appendChild(tuboDaPosizionare)
         divMain.appendChild(tuboDaAppendere)
-        tuboDaPosizionare.style.top = (457 - tuboDaPosizionare.offsetHeight) + "px"
-        tuboDaPosizionare.style.top = (457 - tuboDaAppendere.offsetHeight) + "px"
-        tuboDaPosizionare.style.left = 457 + "px"
+
+        tuboDaPosizionare.style.top = (457 - tuboDaPosizionare.offsetHeight) + "px" // Misura della base da posizionare in base all'altezza
+        tuboDaAppendere.style.top = 0 + "px" // Posizionamento esay peasy sul soffittoo
+        tuboDaPosizionare.style.left = 457 + "px" // Posizionamento orizzontale appena fuori dal main
         tuboDaAppendere.style.left = 457 + "px"
     }
 
-    //muovo i tubi e accorcio l'array tubi
+    //muovo i tub, verifico collisioni e accorcio l'array tubi
 
     for (let i = 0; i < tubi.length; i++) {
         tubi[i].style.left = tubi[i].offsetLeft - (1 + speedValue) + "px"
-        console.error("Muovo tubi n:" + tubi.length)
+
     }
     if (tubi.length > 10) {
         tubi.splice(0, 1)
     }
+
+
+
 
     console.log("Punteggio:" + parseInt(punteggio) + " dataType punteggio: " + typeof punteggio)
     console.log("SpeedValue" + speedValue + " dataType speedValue: " + typeof speedValue)
