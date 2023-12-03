@@ -43,26 +43,29 @@ function sequenza_endgame() {
 
 // Metodo per creare i tubi ostacolo
 function tubo() {
-    let canvaTubo = document.createElement("canvas"); //creo un elemento canvas da aggiungere all'html. canvas è un tipo di elemento html molto versatile per la rappresentazione grafica che mi accingo a sperimentare solo adesso
+    let canvaTubo = document.createElement("canvas");
     canvaTubo.style.position = "absolute";
 
-    let ctx = canvaTubo.getContext("2d"); // Ottieni il contesto di disegno 2D
+    let ctx = canvaTubo.getContext("2d"); //per modificare un elemento canvas bisogna creare una variabile per il suo context e fare drawImage su quello
 
-    let numeroSegmenti = Math.floor(Math.random() * 7) + 1 // genero uno numero casuale da 1 a 7 per contare quanti pezzi di collo del tubo sarà alto l'ostacolo
+    this.numeroSegmenti = Math.floor(Math.random() * 7) + 1; // Gemero un numero casuale di segmenti per fare in modo, lo lascio come variabile interna dell'oggetto tubo risultato del metodo
 
-    const imgColloDaHtml = document.getElementById("colloHtml") //importo la grafica dagli elementi grafici nascosti nell'html
-    const imgTopDaHtml = document.getElementById("topHtml")  //importo la grafica dagli elementi grafici nascosti nell'html
+    const imgColloDaHtml = document.getElementById("colloHtml"); //importo le immagini del tubo dai  
+    const imgTopDaHtml = document.getElementById("topHtml");
 
-    canvaTubo.offsetHeight = imgTopDaHtml.offsetHeight + numeroSegmenti * (imgColloDaHtml.offsetHeight) + "px"// imposto un valore assoluto per l'altezza dell'elemento
-    canvaTubo.offsetWidth = imgColloDaHtml.offsetWidth + "px  " // ho scelto di impostare la larghezza del canvas finale basata sulla larghezza del collo per semplificare il gameplay
 
-    //disegno nel contex del canvas di ritorno
-    ctx.drawImage(imgTopDaHtml, 0, 0)
-    for (let index = numeroSegmenti; index >= 0; index--) {//disegno il tubo mettendo N volte il segmento di base, in ogni iterazione del ciclo i pezzi vengono aggiunti più in basso
-        ctx.drawImage(imgColloDaHtml, 1, imgTopDaHtml.offsetHeight + index * imgColloDaHtml.offsetHeight) // La posizione a cui viene disegnato il segmento si aggiorna man mano
+    canvaTubo.height = imgTopDaHtml.offsetHeight + numeroSegmenti * imgColloDaHtml.offsetHeight;
+    canvaTubo.width = imgColloDaHtml.offsetWidth;
+
+    // Disegna nel contesto del canvas di ritorno
+    ctx.drawImage(imgTopDaHtml, 0, 0);
+    for (let index = numeroSegmenti; index >= 0; index--) {
+        ctx.drawImage(imgColloDaHtml, 1, imgTopDaHtml.offsetHeight + index * imgColloDaHtml.offsetHeight);
     }
-    return canvaTubo
+
+    return canvaTubo;
 }
+
 
 const tubi = []
 
@@ -255,8 +258,9 @@ function mainMethod() {
 
     //muovo i tubi
 
-    for (let tubs = 0; tubi < tubs.length; tubs++) {
-        tubi[tubs].style.left = 1 + "px"
+    for (let i = 0; i < tubi.length; i++) {
+        tubi[i].style.left = tubi[i].offsetLeft - (1 + speedValue) + "px"
+        console.error("Muovo tubi n:" + tubi.length)
     }
 
 
