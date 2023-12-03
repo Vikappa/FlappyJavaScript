@@ -35,7 +35,7 @@ function sequenza_endgame() {
     var finalScore = document.createElement("h3");
     gameOverH2.id = "gameoverScreen";
     finalScore.id = "finalScoreH2"
-    bird.style.animation = "saliScendi 2s linear";
+    bird.style.animation = "saliScendi 2s forwards";
     gameOverH2.textContent = "Game Over";
     finalScore.textContent = "Punteggio: " + Math.round(punteggio);
     divMain.appendChild(gameOverH2);
@@ -221,7 +221,7 @@ function mainMethod() {
             case 3:
                 console.log("Set velocità = 3 speedValue: " + speedValue + " dataType: " + typeof speedValue + " currentSpeed: " + currentSpeed + " dataType: " + typeof currentSpeed)
                 classeCSSSfondoAnimato1.style.animationDuration = '1.8s'
-                classeCSSSfondoAnimato2.style.animationDuration = '1.8z'
+                classeCSSSfondoAnimato2.style.animationDuration = '1.8s'
                 break;
             case 4:
                 console.log("Set velocità = 4 speedValue: " + speedValue + " dataType: " + typeof speedValue + " currentSpeed: " + currentSpeed + " dataType: " + typeof currentSpeed)
@@ -284,7 +284,7 @@ function mainMethod() {
 
 
     //inizio elaborazione ostacoli
-    if (contaframe % 50 === 0 && contaframe !== 0) {
+    if (contaframe % (250 / speedValue) === 0 && contaframe !== 0) {
         console.log('%cPosiziono tubo', 'color: red');
 
         let altezza_tubo_basso = Math.floor(Math.random() * 45) + 1; // Gemero un numero casuale di segmenti per fare in modo, lo lascio come variabile interna dell'oggetto tubo risultato del metodo
@@ -298,7 +298,7 @@ function mainMethod() {
         divMain.appendChild(tuboDaPosizionare)
         divMain.appendChild(tuboDaAppendere)
 
-        tuboDaPosizionare.style.top = (457 - tuboDaPosizionare.offsetHeight) + "px" // Misura della base da posizionare in base all'altezza
+        tuboDaPosizionare.style.top = (420 - tuboDaPosizionare.offsetHeight) + "px" // Misura della base da posizionare in base all'altezza
         tuboDaAppendere.style.top = 0 + "px" // Posizionamento esay peasy sul soffittoo
         tuboDaPosizionare.style.left = 457 + "px" // Posizionamento orizzontale appena fuori dal main
         tuboDaAppendere.style.left = 457 + "px"
@@ -307,7 +307,7 @@ function mainMethod() {
     //muovo i tub, verifico collisioni e accorcio l'array tubi
 
     for (let i = 0; i < tubi.length; i++) {
-        tubi[i].style.left = tubi[i].offsetLeft - (1 + speedValue) + "px"
+        tubi[i].style.left = tubi[i].offsetLeft - (speedValue) + "px"
         checkCollisione(bird, tubi[i])
     }
     if (tubi.length > 10) {
@@ -344,7 +344,6 @@ function mainMethod() {
     //aggiorno la posizione di bird in base alla posizione attuale e applico gravity
     posY += gravity;
     bird.style.top = posY + "px"
-
 }
 
 document.getElementById("replay").addEventListener("click", function () {
