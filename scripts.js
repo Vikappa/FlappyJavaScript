@@ -181,10 +181,6 @@ posY = bird.offsetTop; // Posizione verticale di bird
 //Ora inizia il cuore dell'esecuzione del gioco. il metodo intervalMainMethod continuerà a riprodurre mainmethod finchè non viene resettato
 function mainMethod() {
 
-
-
-
-
     //check salute
 
     // I valori di diffValue e speedValue vengono qui presi come interi dagli oggetti input range dell'html
@@ -208,52 +204,42 @@ function mainMethod() {
             case 1:
                 classeCSSSfondoAnimato1.style.animationDuration = '3s'
                 classeCSSSfondoAnimato2.style.animationDuration = '3s'
-                localStorage.setItem("speed", "1")
                 break;
             case 2:
                 classeCSSSfondoAnimato1.style.animationDuration = '2s'
                 classeCSSSfondoAnimato2.style.animationDuration = '2s'
-                localStorage.setItem("speed", "2")
                 break;
             case 3:
                 classeCSSSfondoAnimato1.style.animationDuration = '1.8s'
                 classeCSSSfondoAnimato2.style.animationDuration = '1.8s'
-                localStorage.setItem("speed", "3")
                 break;
             case 4:
                 classeCSSSfondoAnimato1.style.animationDuration = '1.4s'
                 classeCSSSfondoAnimato2.style.animationDuration = '1.4s'
-                localStorage.setItem("speed", "4")
                 break;
             case 5:
                 classeCSSSfondoAnimato1.style.animationDuration = '1.2s'
                 classeCSSSfondoAnimato2.style.animationDuration = '1.2s'
-                localStorage.setItem("speed", "5")
                 break;
             case 6:
                 classeCSSSfondoAnimato1.style.animationDuration = '1s'
                 classeCSSSfondoAnimato2.style.animationDuration = '1s'
-                localStorage.setItem("speed", "6")
                 break;
             case 7:
                 classeCSSSfondoAnimato1.style.animationDuration = '1.1s'
                 classeCSSSfondoAnimato2.style.animationDuration = '1.1s'
-                localStorage.setItem("speed", "7")
                 break;
             case 8:
                 classeCSSSfondoAnimato1.style.animationDuration = '1s'
                 classeCSSSfondoAnimato2.style.animationDuration = '1s'
-                localStorage.setItem("speed", "8")
                 break;
             case 9:
                 classeCSSSfondoAnimato1.style.animationDuration = '0.8s'
                 classeCSSSfondoAnimato2.style.animationDuration = '0.8s'
-                localStorage.setItem("speed", "9")
                 break;
             case 10:
                 classeCSSSfondoAnimato1.style.animationDuration = '0.5s'
                 classeCSSSfondoAnimato2.style.animationDuration = '0.5s'
-                localStorage.setItem("speed", "10")
                 break;
             default:
                 console.log("Errore default")
