@@ -40,6 +40,7 @@ function sequenza_endgame() {
     finalScore.textContent = "Punteggio: " + Math.round(punteggio);
     divMain.appendChild(gameOverH2);
     divMain.appendChild(finalScore);
+
 }
 
 
@@ -126,8 +127,11 @@ function barra_spaziatrice(event) {
 }
 
 //speedValue e diffValue sono due parametri numerici che devono ereditare il valore degli input presi dai listener per modificare l'esecuzione del metodo principale mainMethod()
-let speedValue
-let diffValue
+let speedValue = localStorage.getItem("speed")
+let diffValue = localStorage.getItem("gravity")
+
+speedInput.value = speedValue
+diffInput.value = diffValue
 
 // var boolean per controllare che il dispositivo sia un pc o un mobile. 
 //mi servirà a inizio esecuzione gioco prima del ciclo principale per modificare l'invito a premere barra spaziatrice o toccare lo schermo
@@ -178,6 +182,9 @@ posY = bird.offsetTop; // Posizione verticale di bird
 function mainMethod() {
 
 
+
+
+
     //check salute
 
     // I valori di diffValue e speedValue vengono qui presi come interi dagli oggetti input range dell'html
@@ -199,54 +206,54 @@ function mainMethod() {
     if (speedValue !== currentSpeed) {
         switch (speedValue) {
             case 1:
-                console.log("Set velocità = 1  speedValue: " + speedValue + " dataType: " + typeof speedValue + " currentSpeed: " + currentSpeed + " dataType: " + typeof currentSpeed)
                 classeCSSSfondoAnimato1.style.animationDuration = '3s'
                 classeCSSSfondoAnimato2.style.animationDuration = '3s'
+                localStorage.setItem("speed", "1")
                 break;
             case 2:
-                console.log("Set velocità = 2 speedValue: " + speedValue + " dataType: " + typeof speedValue + " currentSpeed: " + currentSpeed + " dataType: " + typeof currentSpeed)
                 classeCSSSfondoAnimato1.style.animationDuration = '2s'
                 classeCSSSfondoAnimato2.style.animationDuration = '2s'
+                localStorage.setItem("speed", "2")
                 break;
             case 3:
-                console.log("Set velocità = 3 speedValue: " + speedValue + " dataType: " + typeof speedValue + " currentSpeed: " + currentSpeed + " dataType: " + typeof currentSpeed)
                 classeCSSSfondoAnimato1.style.animationDuration = '1.8s'
                 classeCSSSfondoAnimato2.style.animationDuration = '1.8s'
+                localStorage.setItem("speed", "3")
                 break;
             case 4:
-                console.log("Set velocità = 4 speedValue: " + speedValue + " dataType: " + typeof speedValue + " currentSpeed: " + currentSpeed + " dataType: " + typeof currentSpeed)
                 classeCSSSfondoAnimato1.style.animationDuration = '1.4s'
                 classeCSSSfondoAnimato2.style.animationDuration = '1.4s'
+                localStorage.setItem("speed", "4")
                 break;
             case 5:
-                console.log("Set velocità = 5 speedValue: " + speedValue + " dataType: " + typeof speedValue + " currentSpeed: " + currentSpeed + " dataType: " + typeof currentSpeed)
                 classeCSSSfondoAnimato1.style.animationDuration = '1.2s'
                 classeCSSSfondoAnimato2.style.animationDuration = '1.2s'
+                localStorage.setItem("speed", "5")
                 break;
             case 6:
-                console.log("Set velocità = 6 speedValue: " + speedValue + " dataType: " + typeof speedValue + " currentSpeed: " + currentSpeed + " dataType: " + typeof currentSpeed)
                 classeCSSSfondoAnimato1.style.animationDuration = '1s'
                 classeCSSSfondoAnimato2.style.animationDuration = '1s'
+                localStorage.setItem("speed", "6")
                 break;
             case 7:
-                console.log("Set velocità = 7 speedValue: " + speedValue + " dataType: " + typeof speedValue + " currentSpeed: " + currentSpeed + " dataType: " + typeof currentSpeed)
                 classeCSSSfondoAnimato1.style.animationDuration = '1.1s'
                 classeCSSSfondoAnimato2.style.animationDuration = '1.1s'
+                localStorage.setItem("speed", "7")
                 break;
             case 8:
-                console.log("Set velocità = 8 speedValue: " + speedValue + " dataType: " + typeof speedValue + " currentSpeed: " + currentSpeed + " dataType: " + typeof currentSpeed)
                 classeCSSSfondoAnimato1.style.animationDuration = '1s'
                 classeCSSSfondoAnimato2.style.animationDuration = '1s'
+                localStorage.setItem("speed", "8")
                 break;
             case 9:
-                console.log("Set velocità = 9 speedValue: " + speedValue + " dataType: " + typeof speedValue + " currentSpeed: " + currentSpeed + " dataType: " + typeof currentSpeed)
                 classeCSSSfondoAnimato1.style.animationDuration = '0.8s'
                 classeCSSSfondoAnimato2.style.animationDuration = '0.8s'
+                localStorage.setItem("speed", "9")
                 break;
             case 10:
-                console.log("Set velocità = 10 speedValue: " + speedValue + " dataType: " + typeof speedValue + " currentSpeed: " + currentSpeed + " dataType: " + typeof currentSpeed)
                 classeCSSSfondoAnimato1.style.animationDuration = '0.5s'
                 classeCSSSfondoAnimato2.style.animationDuration = '0.5s'
+                localStorage.setItem("speed", "10")
                 break;
             default:
                 console.log("Errore default")
@@ -342,5 +349,7 @@ function mainMethod() {
 }
 
 document.getElementById("replay").addEventListener("click", function () {
+    localStorage.setItem("speed", speedValue)
+    localStorage.setItem("gravity", diffValue)
     location.reload();
 });
