@@ -88,7 +88,6 @@ function tuboSottosopra(numeroSegmenti) {
 
     let ctx = canvaTubo.getContext("2d"); //per modificare un elemento canvas bisogna creare una variabile per il suo context e fare drawImage su quello
 
-
     const imgColloDaHtml = document.getElementById("colloHtml"); //importo le immagini del tubo dai <img> dell'html 
     const imgTopDaHtml = document.getElementById("topHtml");
 
@@ -102,7 +101,8 @@ function tuboSottosopra(numeroSegmenti) {
         ctx.drawImage(imgColloDaHtml, 2, imgTopDaHtml.offsetHeight + index * imgColloDaHtml.offsetHeight);
     }
 
-    canvaTubo.style.transform = "rotate(180deg)";
+    canvaTubo.style.transform = "rotate(180deg) scaleX(-1)";
+
 
     return canvaTubo;
 }
