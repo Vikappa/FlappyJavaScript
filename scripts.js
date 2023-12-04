@@ -111,19 +111,16 @@ const tubi = []
 
 //metodi azionati dall'interazione dell'utente
 function tocco_utente() {
-    console.log("Salto azionato")
     gravity -= (15 - diffValue)
 }
 
 function mobile() {
     tocco_utente()
-    console.log("Tocco su schermo rilevato!");
 }
 
 function barra_spaziatrice(event) {
     // Funzione da eseguire quando l'utente preme la barra spaziatrice
     if (event.code === "Space") {
-        console.log("Barra spaziatrice premuta!");
         tocco_utente()
     }
 }
@@ -139,7 +136,6 @@ let isMobile = false;
 // Verifica se l'utente sta navigando da un dispositivo mobile LOL
 if (window.innerWidth < 650) {
     isMobile = true;
-    console.log("User agent mobile")
 };
 
 // I listener si impostano una sola volta sugli oggetti Js a cui ho fatto prendere in input gli <input type="range"> per aggiornare speedValue e diffValue
@@ -162,14 +158,12 @@ if (isMobile) {
     document.addEventListener("keydown", barra_spaziatrice);
 }
 
-bird.style.left = "100px"; // Imposta la posizione orizzontale a 100 pixel
 bird.style.top = "50px";  // Imposta la posizione verticale a 50 pixel
-
+bird.style.left = "0px";
 
 
 // Esegui la funzione mainMethod ogni 1000 millisecondi (1 secondo)
 let currentSpeed = parseInt(speedInput.value, 10)// variabile per conservare il valore di speed in ogni iterazione del ciclo principale
-console.log("CurrentSpeed iniziale: " + parseInt(speedInput.value))
 
 // In JavaScript non esiste il multithreading, una sorta di multithread può essere realizzata con i metodi con intervallo di secondi.
 // Devo creare un oggetto "interval" ma poi per modificare l'esecuzione del metodo principale uso setInterval(mainMethod, milliseconde)
@@ -185,10 +179,6 @@ function mainMethod() {
 
 
     //check salute
-    console.log(navigator.userAgent);
-    console.log("Punteggio:" +
-        parseInt(punteggio, 10) +
-        " Datatype: " + typeof punteggio);
 
     // I valori di diffValue e speedValue vengono qui presi come interi dagli oggetti input range dell'html
     var valoreStringaSpeed = speedInput.value // Usa la proprietà .value per ottenere il valore come stringa
@@ -265,8 +255,6 @@ function mainMethod() {
 
         //Check salute animazioni
         currentSpeed = speedValue // Per non iterare questo switch ad ogni iterazione del metodo principale
-        console.log("Aggiorno currentSpeed speedValue: " + speedValue + " dataType: " + typeof speedValue + " currentSpeed: " + currentSpeed + " dataType: " + typeof currentSpeed)
-        console.log("Animazione sfondo classeCSSSfondoAnimato1 e 2 " + window.getComputedStyle(classeCSSSfondoAnimato1) + " " + window.getComputedStyle(classeCSSSfondoAnimato2))
     }
 
     //aggiorna p punteggio a schermo
@@ -314,9 +302,6 @@ function mainMethod() {
         tubi.splice(0, 1)
     }
 
-    console.log("Punteggio:" + parseInt(punteggio) + " dataType punteggio: " + typeof punteggio)
-    console.log("SpeedValue" + speedValue + " dataType speedValue: " + typeof speedValue)
-    console.log("DiffValue:" + diffValue + " dataType diffValue: " + typeof diffValue)
 
 
     // aggiungo difficoltà e gravity
@@ -332,12 +317,10 @@ function mainMethod() {
     }
 
     //rotazione di bird in base alla gravity
-    console.log("Applico " + gravity + " gravity");
     bird.style.transform = "rotate(" + gravity * 1.5 + "deg)";
 
     //check schianto a terra
     if (posY > 393 || (posY + gravity) > 393) {
-        console.log("Schianto a terra")
         sequenza_endgame()
     }
 
@@ -349,6 +332,11 @@ function mainMethod() {
     } else {
         posY += gravity;
         bird.style.top = posY + "px"
+    }
+
+    if (bird.offsetLeft < 100) { // Imposta la posizione orizzontale a 100 pixel
+        console.log(typeof bird.offsetLeft)
+        bird.style.left = (parseInt(bird.style.left) + 1) + "px";
     }
 
 }
