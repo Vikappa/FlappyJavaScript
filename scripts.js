@@ -342,8 +342,9 @@ function mainMethod() {
     }
 
     //aggiorno la posizione di bird in base alla posizione attuale e applico gravity
-    if ((bird.style.top += gravity) <= 0) {
+    if ((posY += gravity) <= 0) {
         posY = 0
+        bird.style.top = posY + "px"
         gravity = 0
     } else {
         posY += gravity;
