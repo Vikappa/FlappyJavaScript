@@ -183,17 +183,19 @@ function mainMethod() {
 
     //check salute
 
-    // I valori di diffValue e speedValue vengono qui presi come interi dagli oggetti input range dell'html
-    var valoreStringaSpeed = speedInput.value // Usa la proprietà .value per ottenere il valore come stringa
-    var valoreInteroSpeed = parseInt(valoreStringaSpeed, 10)// Converte la stringa in un numero intero utilizzando parseInt
+    // I valori di diffValue e speedValue vengono qui presi come interi dagli oggetti input range dell'html o presi dalle variabili che hanno preso il localstorage
+    if (diffValue && speedValue) {
 
-    var valoreStringaDiff = diffInput.value
-    var valoreInteroDiff = parseInt(valoreStringaDiff, 10)
+    }
+    else {
+        speedValue = parseInt(diffInput.value, 10)
+        diffValue = parseInt(diffInput.value, 10)
+    }
+
 
 
     //variabili intere da usare nel codice (speedValue e diffValue)
-    speedValue = valoreInteroSpeed
-    diffValue = valoreInteroDiff
+
 
     // check salute larghezza schermo
     // da fare
